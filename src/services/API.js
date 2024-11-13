@@ -1,5 +1,5 @@
-// const baseURL = 'http://10.0.2.2:8000';
-const baseURL = 'https://mgp.coso.gouv.bj';
+const baseURL = 'http://10.0.2.2:8000';
+// const baseURL = 'https://mgp.coso.gouv.bj';
 export { baseURL };
 function handleErrors(response) {
   if (response.non_field_errors) {
