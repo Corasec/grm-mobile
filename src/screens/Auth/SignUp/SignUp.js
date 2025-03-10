@@ -16,11 +16,9 @@ import { ActivityIndicator, Button, Provider } from "react-native-paper";
 
 import { useDispatch } from "react-redux";
 import { signUp } from "../../../store/ducks/authentication.duck";
-import MapBg from "../../../../assets/map-bg.svg";
 import EADLLogo from "../../../../assets/eadl-logo.svg";
 import { TextInput } from "react-native-paper";
 import { Controller, useForm } from "react-hook-form";
-import CodeInput from "react-native-code-input";
 import MESSAGES from "../../../utils/formErrorMessages";
 import { emailRegex, passwordRegex } from "../../../utils/formUtils";
 import CodeLogo from "../../../../assets/code_logo.svg";
@@ -28,7 +26,9 @@ import SuccessLogo from "../../../../assets/success_logo.svg";
 import BigCheck from "../../../../assets/big-check.svg";
 import API from "../../../services/API";
 import { colors } from "../../../utils/colors";
-import i18n from 'i18n-js';
+import { i18n } from "../../../translations/i18n";
+
+
 
 const theme = {
   roundness: 12,

@@ -20,9 +20,8 @@ import MESSAGES from '../../../utils/formErrorMessages';
 import { emailRegex, passwordRegex } from '../../../utils/formUtils';
 import API from '../../../services/API';
 import { getEncryptedData } from '../../../utils/storageManager';
-import { titles } from '../../Onboarding/containers/Content/utils';
-import i18n from 'i18n-js';
 import { colors } from '../../../utils/colors';
+import { i18n } from "../../../translations/i18n";
 
 const theme = {
   roundness: 12,
