@@ -1,8 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native';
-import i18n from 'i18n-js';
 import * as PropTypes from 'prop-types';
 import React from 'react';
 import { colors } from '../../../../utils/colors';
+import { i18n } from "../../../../translations/i18n";
 
 export default function ListHeader(props) {
   return (

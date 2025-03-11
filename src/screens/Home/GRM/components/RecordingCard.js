@@ -2,8 +2,8 @@ import * as React from "react";
 import { View, Text, Dimensions, StyleSheet } from "react-native";
 import { colors } from '../../../../utils/colors';
 import { IconButton } from 'react-native-paper';
+import { i18n } from "../../../../translations/i18n";
 const { width  } = Dimensions.get("screen");
-import i18n from 'i18n-js';
 
 const RecordingCard = ({onPlay, onPause, onDelete, recording, onStopRecording, playing, current}) => (
   <View style={[styles.alignCenter, {marginTop: 15}]}>
