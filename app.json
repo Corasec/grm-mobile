@@ -22,7 +22,8 @@
         "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos",
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera",
         "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to access your microphone"
-      }
+      },
+      "bundleIdentifier": "com.setcobj.grmapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -47,7 +48,10 @@
     "plugins": [
       "expo-location",
       "expo-image-picker",
-      "expo-av"
+      "expo-av",
+      "expo-font",
+      "expo-localization",
+      "expo-secure-store"
     ],
     "extra": {
       "eas": {
