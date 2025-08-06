@@ -167,6 +167,7 @@
   "days_ago": "jours écoulés",
   "view_details": "VOIR LES DETAILS",
   "accept_issue": "Accepter la plainte",
+  "confirm_accept_issue" : "Accepter la plainte",
   "reject_issue": "Rejeter la plainte",
   "record_steps_taken": "Enregistrer les étapes parcourues",
   "record_resolution": "Sauvegarder la résolution",

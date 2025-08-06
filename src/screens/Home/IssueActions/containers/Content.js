@@ -15,8 +15,8 @@ import { AntDesign, Feather } from '@expo/vector-icons';
 import { colors } from '../../../../utils/colors';
 import { styles } from './Content.styles';
 import { LocalGRMDatabase } from '../../../../utils/databaseManager';
+import { syncIssue } from '../../../../utils/databaseManager';
 import { i18n } from "../../../../translations/i18n";
-import StarRating from 'react-native-star-rating-widget';
 import AddAttachmentCard from "../../GRM/components/AddAttachmentCard";
 
 const theme = {
@@ -39,7 +39,8 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
   const [recordStepsDialog, setRecordStepsDialog] = useState(false);
   const [escalateDialog, setEscalateDialog] = useState(false);
   const [recordResolutionDialog, setRecordResolutionDialog] = useState(false);
-  const [acceptedDialog, setAcceptedDialog] = useState(false);
+  const [acceptedDialog, setAcceptedDialog] = useState(issue.accepted || false);
+  const [acceptConfirmDialog, setAcceptConfirmDialog] = useState(false)
   const [rejectedDialog, setRejectedDialog] = useState(false);
   const [escalatedDialog, setEscalatedDialog] = useState(false);
   const [disableEscalation, setDisableEscalation] = useState(false);
@@ -62,7 +63,6 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
   const [hasActions, setHasActions] = useState(false);
   const [attachment, setAttachment] = useState({});
   const [recordingURI, setRecordingURI] = useState();
-
   const goToDetails = () => navigation.jumpTo('IssueDetail');
   const goToHistory = () => {
     setRecordedSteps(false);
@@ -95,6 +95,14 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
     ToastAndroid.show(message, ToastAndroid.SHORT);
   };
 
+  const _showAcceptConfirmDialog = () => {
+  setAcceptConfirmDialog(true);
+};
+
+const _hideAcceptConfirmDialog = () => {
+  setAcceptConfirmDialog(false);
+};
+
   const updateActionButtons = () => {
     function _isAcceptEnabled(x) {
       if (x.initial_status && isIssueAssignedToMe) {
@@ -121,11 +129,11 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
     }
 
     // check if can reject
-    const hasComments = issue.comments && issue.comments.length > 0;
-    const hasEscalated = issue.escalate_flag;
-    const hasRejected = issue.reject_flag;
+    // const hasComments = issue.comments && issue.comments.length > 0;
+    // const hasEscalated = issue.escalate_flag;
+    // const hasRejected = issue.reject_flag;
 
-    setHasActions(hasComments || hasEscalated || hasRejected);
+    // setHasActions(hasComments || hasEscalated || hasRejected);
   };
 
   const whatsApp = () => {
@@ -159,31 +167,31 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
     };
   };
 
-  const acceptIssue = () => {
-    const newStatus = statuses.find((x) => x.open_status === true);
+
+  const confirmAcceptIssue = () => {
     setIssue((prevIssue) => {
-      const updatedIssue = updateIssueWithComments(prevIssue, newStatus, {
-        name: prevIssue.reporter.name,
-        id: eadl._id,
-        comment: i18n.t('issue_was_accepted'),
-        due_at: moment(),
-      });
+      const updatedIssue = {
+        ...prevIssue,
+        accepted: true,
+        comments: [
+          ...prevIssue.comments,
+          {
+            name: prevIssue.reporter.name,
+            id: eadl._id,
+            comment: i18n.t('issue_was_accepted'),
+            due_at: moment(),
+          },
+        ],
+      };
       return updatedIssue;
     });
+  
+    setAcceptedDialog(true);
+    setHasActions(true);
+  
+    showToast(i18n.t('issue_was_accepted'));
+    _hideAcceptConfirmDialog();
   };
-
-  // const rejectIssue = () => {
-  //   const newStatus = statuses.find((x) => x.rejected_status === true);
-  //   setIssue((prevIssue) => {
-  //     const updatedIssue = updateIssueWithComments(prevIssue, newStatus, {
-  //       name: prevIssue.reporter.name,
-  //       id: eadl._id,
-  //       comment: i18n.t('issue_was_rejected'),
-  //       due_at: moment(),
-  //     });
-  //     return updatedIssue;
-  //   });
-  // };
 
   const rejectIssue = () => {
     const newStatus = statuses.find((x) => x.rejected_status === true);
@@ -235,43 +243,10 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
     setIsAcceptEnabled(false);
     setIsRecordResolutionEnabled(false);
     setIsRateAppealEnabled(false);
+    setHasActions(true);
   
     showToast(i18n.t('issue_rejected_successfully'));
-    saveIssueStatus(newStatus, 'reject');
-  };
-
-  const rateIssue = () => {
-    if (rating > 0) {
-        setIssue((prevIssue) => {
-          const updatedIssue = updateIssueWithComments(prevIssue, prevIssue.status, {
-            name: prevIssue.reporter.name,
-            id: eadl._id,
-            comment: i18n.t('issue_was_rated'),
-            due_at: moment(),
-          });
-          updatedIssue.rating = rating;
-          return updatedIssue;
-        });
-    } else {
-        _showRateAppealDialog();
-    }
-    _hideRatingDialog();
-  };
-
-  const appealIssue = () => {
-    const newStatus = statuses.find((x) => x.open_status === true);
-    setIssue((prevIssue) => {
-      const updatedIssue = updateIssueWithComments(prevIssue, newStatus, {
-        name: prevIssue.reporter.name,
-        id: eadl._id,
-        comment: i18n.t('issue_was_appealed'),
-        due_at: moment(),
-      });
-      updatedIssue.escalate_flag = true;
-      return updatedIssue;
-    });
-    _hideRateAppealDialog();
-    showToast('Votre demande a bien été prise en compte.');
+    saveIssueStatus('reject');
   };
 
   const escalateIssue = () => {
@@ -362,7 +337,7 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
   };
 
   useEffect(() => {
-    if (recordedSteps || recordResolutionConfirmation || escalateIssue || rejectedDialog) {
+    if (acceptedDialog || recordedSteps || recordResolutionConfirmation || escalateIssue || rejectedDialog) {
       saveIssueStatus();
     }
   }, [issue]);
@@ -413,36 +388,31 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
     setHasActions(true);
   };
 
-  const saveIssueStatus = (newStatus, type = 'none') => {
- 
-    // only add/update reject_reason if type == 'rejected'
-    // if (type === 'rejected') {
-    //   updatedIssue = {
-    //     ...updatedIssue,
-    //     reject_reason: reason,
-    //   };
-    // }
+  const saveIssueStatus = async (type = 'none') => {
     console.log("toSaveIssue.comments : ", issue.comments);
-    LocalGRMDatabase.upsert(issue._id, (doc) => {
-      doc = issue;
-      console.log("saving issue +++");
-      return doc;
-    }).then(() => {
-        updateActionButtons();
-        if (type === 'accept') {
-          setAcceptedDialog(true);
-        } else if (type === 'reject') {
-          setRejectedDialog(true);
-        } else if (type === 'record_resolution') {
-          setRecordedResolution(false);
-          _hideRecordResolutionDialog();
-        }
-      })
-      .catch((err) => {
-        console.log('Save issue error', err);
+    try {
+      await LocalGRMDatabase.upsert(issue._id, (doc) => {
+        doc = issue;
+        console.log("saving issue +++");
+        return doc;
       });
-  };
 
+      // sync issue doc after local update
+      await syncIssue(issue);
+
+      updateActionButtons();
+      if (type === 'accept') {
+        setAcceptedDialog(true);
+      } else if (type === 'reject') {
+        setRejectedDialog(true);
+      } else if (type === 'record_resolution') {
+        setRecordedResolution(false);
+        _hideRecordResolutionDialog();
+      }
+    } catch (err) {
+      console.log('Save issue error', err);
+    }
+  };
 
   useEffect(() => {
     function _isIssueAssignedToMe() {
@@ -518,29 +488,12 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
 
           </View>
 
-          {/*<View style={styles.ratingInfoSection}>
-            {
-              !issue.rating ?
-                (
-                  <Text style={styles.radioLabel}>{i18n.t('not_rate_yet')}</Text>
-                ) : (
-                  <Text style={styles.radioLabel}>{i18n.t(`satisfaction_level_${issue.rating}`)}</Text>
-                )
-            }
-            <StarRating
-              starSize={30}
-              rating={() => issue.rating ? issue.rating : 0}
-              maxStars={5}
-              onChange={() => null}
-              emptyColor="#dddddd"/>
-
-          </View>*/}
-
           {/* ACTION BUTTONS */}
           <View style={{ borderWidth: 1, borderRadius: 15, padding: 15, borderColor: colors.lightgray }}>
-            {/* <TouchableOpacity
-              onPress={() => _showDialog()}
-              disabled={!isAcceptEnabled}
+            
+            <TouchableOpacity
+              onPress={_showAcceptConfirmDialog}
+              disabled={acceptedDialog || hasActions}
               style={{
                 alignItems: 'center',
                 flexDirection: 'row',
@@ -554,15 +507,15 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
                   style={{ marginRight: 5 }}
                   name="rightsquare"
                   size={35}
-                  color={isAcceptEnabled ? colors.primary : colors.disabled}
+                  color={!acceptedDialog && !hasActions ? colors.primary : colors.disabled}
                 />
                 <Feather name="help-circle" size={24} color="gray"/>
               </View>
-            </TouchableOpacity> */}
+            </TouchableOpacity>
 
             <TouchableOpacity
               onPress={_showRejectDialog}
-              disabled={rejectedDialog || hasActions}
+              disabled={acceptedDialog || rejectedDialog || hasActions}
               style={{
                 alignItems: 'center',
                 flexDirection: 'row',
@@ -576,7 +529,7 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
                   style={{ marginRight: 5 }}
                   name="rightsquare"
                   size={35}
-                  color={!rejectedDialog && !hasActions ? colors.primary : colors.disabled}
+                  color={!acceptedDialog &&!rejectedDialog && !hasActions ? colors.primary : colors.disabled}
                 />
                 <Feather name="help-circle" size={24} color="gray"/>
               </View>
@@ -584,7 +537,7 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
             
             <TouchableOpacity
               onPress={_showRecordStepsDialog}
-              disabled={!isRecordResolutionEnabled }
+              disabled={!acceptedDialog || !isRecordResolutionEnabled }
               style={{
                 alignItems: 'center',
                 flexDirection: 'row',
@@ -598,7 +551,7 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
                   style={{ marginRight: 5 }}
                   name="rightsquare"
                   size={35}
-                  color={isRecordResolutionEnabled ? colors.primary : colors.disabled}
+                  color={acceptedDialog && isRecordResolutionEnabled ? colors.primary : colors.disabled}
                 />
                 <Feather name="help-circle" size={24} color="gray"/>
               </View>
@@ -606,7 +559,7 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
 
             <TouchableOpacity
               onPress={_showRecordResolutionDialog}
-              disabled={!isRecordResolutionEnabled}
+              disabled={!acceptedDialog || !isRecordResolutionEnabled}
               style={{
                 alignItems: 'center',
                 flexDirection: 'row',
@@ -620,37 +573,16 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
                   style={{ marginRight: 5 }}
                   name="rightsquare"
                   size={35}
-                  color={isRecordResolutionEnabled ? colors.primary : colors.disabled}
+                  color={acceptedDialog && isRecordResolutionEnabled ? colors.primary : colors.disabled}
                 />
                 <Feather name="help-circle" size={24} color="gray"/>
               </View>
             </TouchableOpacity>
 
-            {/* <TouchableOpacity
-              onPress={_showRatingDialog}
-              disabled={!isRateAppealEnabled}
-              style={{
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                marginVertical: 10,
-              }}
-            >
-              <Text style={styles.subtitle}>{i18n.t('rate_appeal')}</Text>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <AntDesign
-                  style={{ marginRight: 5 }}
-                  name="rightsquare"
-                  size={35}
-                  color={isRateAppealEnabled ? colors.primary : colors.disabled}
-                />
-                <Feather name="help-circle" size={24} color="gray"/>
-              </View>
-            </TouchableOpacity> */}
           </View>
             <TouchableOpacity
               onPress={_showEscalateDialog}
-              disabled={disableEscalation || !isRecordResolutionEnabled}
+              disabled={disableEscalation || !isRecordResolutionEnabled || !acceptedDialog}
               style={{
                 alignItems: 'center',
                 flexDirection: 'row',
@@ -666,7 +598,7 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
                   name="rightsquare"
                   size={35}
                   color={
-                    !disableEscalation && isRecordResolutionEnabled ? colors.primary : colors.disabled
+                    !disableEscalation && isRecordResolutionEnabled && acceptedDialog ? colors.primary : colors.disabled
                   }
                 />
                 <Feather name="help-circle" size={24} color="gray"/>
@@ -675,121 +607,35 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
         </View>
       </KeyboardAvoidingView>
 
-      {/* FEEDBACK AND APPEAL MODAL */}
+      {/* Accept MODAL */}
       <Portal>
-        <Dialog visible={rateAppealDialog} onDismiss={_hideRateAppealDialog}>
-          <Dialog.Title>{i18n.t('confirmation')}?</Dialog.Title>
+        <Dialog visible={acceptConfirmDialog} onDismiss={_hideAcceptConfirmDialog}>
           <Dialog.Content>
-            <Paragraph>
-              {i18n.t('confirm_your_choice')}
-            </Paragraph>
+            <Paragraph>{i18n.t('confirm_accept_issue')}</Paragraph>
           </Dialog.Content>
           <Dialog.Actions>
             <Button
               theme={theme}
-              style={{
-                alignSelf: 'center',
-                backgroundColor: '#E74C3C',
-                paddingLeft: 15,
-                paddingRight: 15,
-              }}
+              style={{ backgroundColor: '#d4d4d4' }}
               labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
               mode="contained"
-              onPress={_hideRateAppealDialog}
-            >
-              {i18n.t('no')}
-            </Button>
-            <Button
-              theme={theme}
-              style={{ alignSelf: 'center', margin: 24, paddingLeft: 15, paddingRight: 15 }}
-              labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
-              mode="contained"
-              onPress={appealIssue}
-            >
-              {i18n.t('yes')}
-            </Button>
-          </Dialog.Actions>
-        </Dialog>
-      </Portal>
-
-      {/* RATING MODAL */}
-      <Portal>
-        <Dialog visible={ratingDialog} onDismiss={_hideRatingDialog}>
-          <Dialog.Title>{i18n.t('rating')}?</Dialog.Title>
-          <Dialog.Content>
-            <Paragraph>
-              {i18n.t('rate_issue')}
-            </Paragraph>
-            <RadioButton.Group
-              onValueChange={(newValue) => {
-                if (newValue === rating) {
-                  setRating(0);
-                } else {
-                  setRating(newValue);
-                }
-              }}
-              value={rating}
-            >
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-                <RadioButton.Android value={5} uncheckedColor="#dedede" color={colors.primary}/>
-                <Text style={styles.radioLabel}>
-                  {i18n.t('satisfaction_level_5')}{' '}
-                </Text>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-                <RadioButton.Android value={4} uncheckedColor="#dedede" color={colors.primary}/>
-                <Text style={styles.radioLabel}>
-                  {i18n.t('satisfaction_level_4')}{' '}
-                </Text>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-                <RadioButton.Android value={3} uncheckedColor="#dedede" color={colors.primary}/>
-                <Text style={styles.radioLabel}>
-                  {i18n.t('satisfaction_level_3')}{' '}
-                </Text>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-                <RadioButton.Android value={2} uncheckedColor="#dedede" color={colors.primary}/>
-                <Text style={styles.radioLabel}>
-                  {i18n.t('satisfaction_level_2')}{' '}
-                </Text>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-                <RadioButton.Android value={1} uncheckedColor="#dedede" color={colors.primary}/>
-                <Text style={styles.radioLabel}>
-                  {i18n.t('satisfaction_level_1')}{' '}
-                </Text>
-              </View>
-              <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 5 }}>
-                <RadioButton.Android value={0} uncheckedColor="#dedede" color={colors.primary}/>
-                <Text style={styles.radioLabel}>
-                  {i18n.t('satisfaction_level_0')}{' '}
-                </Text>
-              </View>
-            </RadioButton.Group>
-          </Dialog.Content>
-          <Dialog.Actions>
-            <Button
-              theme={theme}
-              style={{ alignSelf: 'center', backgroundColor: '#d4d4d4' }}
-              labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
-              mode="contained"
-              onPress={_hideRatingDialog}
+              onPress={_hideAcceptConfirmDialog}
             >
               {i18n.t('cancel')}
             </Button>
             <Button
               theme={theme}
-              style={{ alignSelf: 'center', margin: 24 }}
+              style={{ margin: 24 }}
               labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
               mode="contained"
-              onPress={rateIssue}
+              onPress={confirmAcceptIssue}
             >
-              {i18n.t('save_button_text')}
+              {i18n.t('confirm')}
             </Button>
           </Dialog.Actions>
         </Dialog>
       </Portal>
+
 
       {/* REJECT MODAL */}
       <Portal>
@@ -855,58 +701,6 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
                 labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
                 mode="contained"
                 onPress={_hideRejectDialog}
-              >
-                {i18n.t('finished')}
-              </Button>
-            </Dialog.Actions>
-          )}
-        </Dialog>
-      </Portal>
-
-      {/* ACCEPT MODAL */}
-      <Portal>
-        <Dialog visible={acceptDialog} onDismiss={_hideDialog}>
-          {!acceptedDialog && <Dialog.Title>{i18n.t('accept_issue')}?</Dialog.Title>}
-          <Dialog.Content>
-            {!acceptedDialog ? (
-              <Paragraph>
-                {i18n.t('are_you_accepting')}
-              </Paragraph>
-            ) : (
-              <Paragraph>
-                {i18n.t('you_have_accepted')}
-              </Paragraph>
-            )}
-          </Dialog.Content>
-          {!acceptedDialog ? (
-            <Dialog.Actions>
-              <Button
-                theme={theme}
-                style={{ alignSelf: 'center', backgroundColor: '#d4d4d4' }}
-                labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
-                mode="contained"
-                onPress={_showRejectDialog}
-              >
-                {i18n.t('reject')}
-              </Button>
-              <Button
-                theme={theme}
-                style={{ alignSelf: 'center', margin: 24 }}
-                labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
-                mode="contained"
-                onPress={acceptIssue}
-              >
-                {i18n.t('accept')}
-              </Button>
-            </Dialog.Actions>
-          ) : (
-            <Dialog.Actions>
-              <Button
-                theme={theme}
-                style={{ alignSelf: 'center', margin: 24 }}
-                labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
-                mode="contained"
-                onPress={_hideDialog}
               >
                 {i18n.t('finished')}
               </Button>
@@ -1052,15 +846,6 @@ function Content({ item, navigation, statuses = [], eadl, updateIssue }) {
               >
                 {i18n.t('finished')}
               </Button>
-              {/* <Button
-                theme={theme}
-                style={{ alignSelf: 'center', margin: 24 }}
-                labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
-                mode="contained"
-                onPress={goToHistory}
-              >
-                {i18n.t('view_history')}
-              </Button> */}
             </Dialog.Actions>
           )}
         </Dialog>

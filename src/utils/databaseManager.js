@@ -27,6 +27,21 @@ export const LocalCommunesDatabase = new PouchDB('commune', {
 
 export const ResourceUrl = RESOURCE_URL;
 
+// function to sync a specific Issue document
+// temporary fix fow location with low internet connexion
+export const syncIssue = async (issue) => {
+  try {
+    const grmRemoteDB = new PouchDB(`${BASE_URL}/grm`, { skip_setup: true });
+    await LocalGRMDatabase.replicate.to(grmRemoteDB, {
+      // only sync the updated issue
+      doc_ids: [issue._id] 
+    });
+    console.log('Document synced successfully');
+  } catch (error) {
+    console.error('Error syncing document:', error);
+  }
+};
+
 export const SyncToRemoteDatabase = async ({ username, password }, userEmail) => {
   const remoteDB = new PouchDB(`${BASE_URL}/administrative_levels`, {
     skip_setup: true,
