@@ -1,9 +1,9 @@
 import React from "react";
 import { Provider as PaperProvider } from 'react-native-paper';
 import { Provider as ReduxProvider } from "react-redux";
-import store from "./src/store";
-import "./src/translations/i18n";
-import Router from "./src/router";
+import store from "./src/shared/store";
+import "./src/shared/translations/i18n";
+import Router from "./src/shared/router";
 import * as Sentry from '@sentry/react-native';
 
 Sentry.init({

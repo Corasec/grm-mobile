@@ -112,6 +112,7 @@ __MACOSX/
 eas.json
 android/gradle.properties
 .env.local
+.env
 .nvmrc
 config.prod
 config.dev
