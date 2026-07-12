@@ -1,3 +1,4 @@
+const path = require('path');
 const {
   getSentryExpoConfig
 } = require("@sentry/react-native/metro");
@@ -14,7 +15,13 @@ module.exports = (async () => {
     ...resolver,
     assetExts: resolver.assetExts.filter(ext => ext !== 'svg'),
     sourceExts: [...resolver.sourceExts, 'svg'],
+    extraNodeModules: {
+      'grm-learning-materials': path.resolve(__dirname, 'packages/learning-materials'),
+    },
   };
+  config.watchFolders = [
+    path.resolve(__dirname, 'packages/learning-materials'),
+  ];
 
   return config;
 })();

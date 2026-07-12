@@ -5,6 +5,18 @@ import store from "./src/store";
 import "./src/translations/i18n";
 import Router from "./src/router";
 import * as Sentry from '@sentry/react-native';
+import { configureLearningMaterialsApi } from 'grm-learning-materials';
+import config from './config';
+import { getSessionData } from './src/store/ducks/authentication.duck';
+
+configureLearningMaterialsApi({
+  baseURL: config.API_AUTH_BASE_URL,
+  getAuthHeaders: async () => {
+    const session = await getSessionData();
+    if (!session || !session.token) return {};
+    return { Authorization: `Token ${session.token}` };
+  },
+});
 
 Sentry.init({
   dsn: 'https://13d0e5a2fdf6ca1d5f320c6dd4e0657b@o4511032262066176.ingest.us.sentry.io/4511032273797120',
