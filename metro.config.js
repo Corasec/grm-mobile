@@ -1,10 +1,8 @@
 const path = require('path');
-const {
-  getSentryExpoConfig
-} = require("@sentry/react-native/metro");
+const { getDefaultConfig } = require('expo/metro-config');
 
 module.exports = (async () => {
-  const config = await getSentryExpoConfig(__dirname);
+  const config = await getDefaultConfig(__dirname);
   const { transformer, resolver } = config;
 
   config.transformer = {

@@ -12,7 +12,6 @@ import Notifications from './Notifications';
 import ParticipatoryBudgetingList from './ParticipatoryBudgeting/ParticipatoryBudgetingList';
 import PhaseTasks from './PhaseTasks/PhaseTasks';
 import DocumentTask from './DocumentTask/DocumentTask';
-import Diagnostics from './Diagnostics';
 import Statistics from './Statistics/Statistics';
 import SyncAttachments from './SyncAttachments/SyncAttachments';
 import RegisterSubprojects from './RegisterSubprojects/RegisterSubprojects';
@@ -163,7 +162,7 @@ function DashboardStackScreen() {
       <HomeStack.Screen
         name="IssueSearch"
         component={IssueSearch}
-        options={({ navigation, route }) => customHeaderOptions(i18n.t('summary'))}
+        options={({ navigation, route }) => customHeaderOptions(i18n.t('your_summary'))}
       />
       <HomeStack.Screen
         name="Statistics"

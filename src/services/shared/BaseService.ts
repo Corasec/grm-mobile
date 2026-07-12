@@ -211,7 +211,8 @@ export class BaseService<T> {
     allPages: boolean | null = null,
     sortBy: string | null = null,
     sortOrder: SortOrder | null = null,
-    extraQueries: any[] | null = null
+    extraQueries: any[] | null = null,
+    searchTerm: string | null = null
   ): Promise<T[]> {
     const state = await NetInfo.fetch();
 
@@ -227,7 +228,8 @@ export class BaseService<T> {
           null,
           null,
           null,
-          parentId
+          parentId,
+          searchTerm
         );
 
         if (Array.isArray(remoteResult)) {
@@ -426,7 +428,9 @@ export class BaseService<T> {
 
     if (parentChanges) {
       // Parent IDs available - Pulling sub-items
-      console.log('Parent IDs object available - pulling sub items');
+      if (__DEV__) { 
+        console.log(`${tableName}: Parent IDs object available (Might be empty) - pulling sub items`);
+      }
 
       try {
         let newRecords = [];
@@ -445,7 +449,8 @@ export class BaseService<T> {
                 lastPulledAt, // created_date
                 nullUpdatedDate,
                 nullDeletedDate,
-                parent.id ?? null
+                parent.id ?? null,
+                null
               ),
               parent.id ?? null,
             ],
@@ -482,7 +487,8 @@ export class BaseService<T> {
                 nullCreatedDate,
                 lastPulledAt,
                 nullDeletedDate,
-                parent.id ?? null
+                parent.id ?? null,
+                null
               ),
               parent.id ?? null,
             ],
@@ -574,7 +580,9 @@ export class BaseService<T> {
       return { changes };
     } else {
       // Parent IDs unavailable - Pulling parents
-      console.log('No Parent IDs, therefore no sub items to sync. Pulling Top Level Elements');
+      if (__DEV__) { 
+        console.log(`${tableName}: No Parent IDs, therefore no sub items to sync. This indicates a top level element pull event`);
+      }
 
       try {
         const newRecords = await this.remoteRepository.fetchAll(
@@ -587,7 +595,8 @@ export class BaseService<T> {
           lastPulledAt,
           nullUpdatedDate,
           nullDeletedDate,
-          nullParentId
+          nullParentId,
+          null
         );
 
         const createdFormattedRecords = newRecords.map((item) =>
@@ -600,7 +609,6 @@ export class BaseService<T> {
           id: String(record.id),
         }));
       } catch (e) {
-        console.error('Catch pulling created changes', e);
         tableChanges.updated = [];
         syncPullFailed = true;
       }
@@ -618,7 +626,8 @@ export class BaseService<T> {
             nullCreatedDate,
             lastPulledAt,
             nullDeletedDate,
-            nullParentId
+            nullParentId,
+            null
           );
 
           const updatedFormattedRecords = updatedRecords.map((item) =>
@@ -634,7 +643,6 @@ export class BaseService<T> {
             })),
           ];
         } catch (error) {
-          console.error('Catch pulling updated changes', error);
           syncPullFailed = true;
         }
 
@@ -698,7 +706,7 @@ export class BaseService<T> {
     tableChanges.created = tableChanges.created.filter((item) => item != null);
     tableChanges.updated = tableChanges.updated.filter((item) => item != null);
     tableChanges.deleted = tableChanges.deleted.filter((item) => item != null);
-    
+
     // Handle created records
     if (tableChanges.created.length > 0) {
       console.log(`Pushing ${tableChanges.created.length} new records to ${tableName}`);
