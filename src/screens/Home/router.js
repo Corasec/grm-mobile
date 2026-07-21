@@ -35,7 +35,7 @@ import IssueHistory from './IssueHistory/IssueHistory';
 import Profile from './Profile/Profile';
 import { Icon } from "react-native-elements";
 import SearchBarGrm from './SearchBarGrm/SearchBarGrm';
-import { LearningMaterialsScreen, LearningMaterialDetailScreen } from 'grm-learning-materials';
+import { LearningMaterialsScreen, LearningMaterialDetailScreen } from '@e3tools/e3-mobile-learning-materials';
 
 const iconConfig = {
   focused: {

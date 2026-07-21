@@ -4,7 +4,7 @@ import { Provider as ReduxProvider } from "react-redux";
 import store from "./src/store";
 import "./src/translations/i18n";
 import Router from "./src/router";
-import { configureLearningMaterialsApi } from 'grm-learning-materials';
+import { configureLearningMaterialsApi } from '@e3tools/e3-mobile-learning-materials';
 import config from './config';
 import { getSessionData } from './src/store/ducks/authentication.duck';
 
