@@ -10,6 +10,7 @@
   
   //Tabs
   "dashboard": "Dashboard",
+  "training": "Learnings",
   "profile": "Profil",
   //Onboarding
   "used_app_before": "Avez-vous vos identifiants de connexion ?",

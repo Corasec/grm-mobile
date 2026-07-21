@@ -4,6 +4,18 @@ import { Provider as ReduxProvider } from "react-redux";
 import store from "./src/store";
 import "./src/translations/i18n";
 import Router from "./src/router";
+import { configureLearningMaterialsApi } from '@e3tools/e3-mobile-learning-materials';
+import config from './config';
+import { getSessionData } from './src/store/ducks/authentication.duck';
+
+configureLearningMaterialsApi({
+  baseURL: config.API_AUTH_BASE_URL,
+  getAuthHeaders: async () => {
+    const session = await getSessionData();
+    if (!session || !session.token) return {};
+    return { Authorization: `Token ${session.token}` };
+  },
+});
 
 if (__DEV__) {
   // eslint-disable-next-line no-console

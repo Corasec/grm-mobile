@@ -8,6 +8,7 @@
 
   //Tabs
   "dashboard": "Dashboard",
+  "training": "Learnings",
   "profile": "Profile",
   //Onboarding
   "used_app_before": "Have you use this app before?",

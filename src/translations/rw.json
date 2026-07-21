@@ -6,6 +6,10 @@
   "took_place_on": "byabereye ku ya",
   //Headers
   "citizen_input_header": "Kwinjiza ikibazo",
+  //Tabs
+  "dashboard": "Dashboard",
+  "training": "Learnings",
+  "profile": "Profayile",
   //Onboarding
   "used_app_before": "Wigeze ukoresha iyi porogaramu mbere?",
   "yes": "YEGO",

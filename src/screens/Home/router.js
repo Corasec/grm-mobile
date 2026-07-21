@@ -35,6 +35,7 @@ import IssueHistory from './IssueHistory/IssueHistory';
 import Profile from './Profile/Profile';
 import { Icon } from "react-native-elements";
 import SearchBarGrm from './SearchBarGrm/SearchBarGrm';
+import { LearningMaterialsScreen, LearningMaterialDetailScreen } from '@e3tools/e3-mobile-learning-materials';
 
 const iconConfig = {
   focused: {
@@ -103,6 +104,7 @@ const AnimatedIonicons = posed(Ionicons)(iconConfig);
 
 const HomeStack = createStackNavigator();
 const ProfileStack = createStackNavigator();
+const LearningStack = createStackNavigator();
 const NotificationsStack = createStackNavigator();
 
 /**
@@ -241,6 +243,35 @@ function ProfileStackScreen() {
   );
 }
 
+/**
+ * Stack for Learning Materials screens.
+ */
+function LearningStackScreen() {
+  return (
+    <LearningStack.Navigator>
+      <LearningStack.Screen
+        name="LearningMaterials"
+        options={
+          ({ navigation, route }) => ({
+          ...customHeaderOptions(i18n.t('training')),
+        })
+        }
+        component={LearningMaterialsScreen}
+        initialParams={{ audience: 'facilitator' }}
+      />
+      <LearningStack.Screen
+        name="LearningMaterialDetail"
+        options={
+          ({ navigation, route }) => ({
+          ...customHeaderOptions(i18n.t('training')),
+        })
+        }
+        component={LearningMaterialDetailScreen}
+      />
+    </LearningStack.Navigator>
+  );
+}
+
 function NotificationsStackScreen() {
   return (
     <NotificationsStack.Navigator>
@@ -323,6 +354,23 @@ function AppRootNavigator() {
           ),
         }}
         component={DashboardStackScreen}
+      />
+      <RootTab.Screen
+        name="LearningTab"
+        options={{
+          headerShown: false,
+          tabBarLabel: i18n.t('training'),
+          tabBarActiveTintColor: colors.primary,
+          tabBarIcon: ({ focused, color, size }) => (
+            <AnimatedFeatherIcon
+              pose={focused ? 'focused' : 'unfocused'}
+              name="book-open"
+              size={size}
+              color={color}
+            />
+          ),
+        }}
+        component={LearningStackScreen}
       />
       <RootTab.Screen
         name="ProfileTab"
