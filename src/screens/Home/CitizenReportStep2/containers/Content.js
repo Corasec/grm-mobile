@@ -440,7 +440,6 @@ function Content({ stepOneParams, issueCategories, issueTypes, issueSubTypes, is
               marginVertical: 13,
             }}
           >
-            {i18n.t('step_2_share_photos')}
           </Text>      
           <AddAttachmentCard
             theme={theme}
