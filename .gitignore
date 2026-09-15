@@ -117,3 +117,4 @@ config.prod
 config.dev
 credentials.json
 android/app/release/*.apk
+.env
