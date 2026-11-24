@@ -10,8 +10,21 @@ import { styles } from './Content.styles';
 import { useIssue } from '../../../../hooks/issues/useIssue';
 import { useIssueAttachments } from '../../../../hooks/issues/useIssueAttachments';
 import { showToast } from '../../../../utils/utils';
+import { nextTrackingCode } from '../../../../utils/trackingCode';
+import { databaseServiceInstance, getData, storeData } from '../../../../utils/storageManager';
+import { TABLE_NAMES } from '../../../../migrations/tableName';
 
-const SAMPLE_WORDS = ['lac', 'plaine', 'savane', 'colline'];
+/** Tracking codes of the issues already stored on the phone. */
+async function localTrackingCodes() {
+  try {
+    const records = await databaseServiceInstance.database.get(TABLE_NAMES.issue).query().fetch();
+    return records.map((record) => record._raw?.tracking_code);
+  } catch (error) {
+    console.error('Cannot read local tracking codes', error);
+    return [];
+  }
+}
+
 const theme = {
   roundness: 12,
   colors: {
@@ -36,14 +49,17 @@ function Content({ issue, session, profile }) {
   //   if (!eadl.bp_projects[0]) return 1;
   //   return parseInt(last.id.split('-')[1]) + 1;
   // };
-  const randomWord = (arr) => arr[Math.floor(Math.random() * arr.length)];
   
   const submitIssue = async () =>
   {  
     
-    const randomCodeNumber = Math.floor(Math.random() * 1000);
+    // Unique offline code: <word><account id>-<counter>, e.g. "lac17-4" (see utils/trackingCode.ts)
+    const trackingCode = await nextTrackingCode(session.user_id, await localTrackingCodes(), {
+      get: getData,
+      set: storeData,
+    });
     const _issue = {
-      tracking_code: `${randomWord(SAMPLE_WORDS)}${randomCodeNumber}`,
+      tracking_code: trackingCode,
       title: issue.issueSummary,
       description: issue.additionalDetails,
       attachments: [
