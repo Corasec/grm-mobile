@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import SmallCard from '../components/SmallCard';
 import BigCard from '../components/BigCard';
 import Chart from '../../../../../assets/chart_line_solid.svg';
-import FileIcon from '../../../../../assets/file_alt_regular.svg';
+// import FileIcon from '../../../../../assets/file_alt_regular.svg'; // "Information" card (backlog 16)
 import TeamWorkIcon from '../../../../../assets/team-work.svg';
 import SyncIcon from '../../../../../assets/sync_alt_solid.svg';
 import { i18n } from '../../../../translations/i18n';
@@ -136,27 +136,13 @@ function Content() {
               icon={<Chart />}
               style={{
                 flex: 1,
-                marginRight: 8,
                 minWidth: 130,
                 borderRadius: 14,
                 backgroundColor: 'white',
                 elevation: 1,
               }}
             />
-            <SmallCard
-              image={require('../../../../../assets/BG_2.png')}
-              onCardPress={() => alert('Upcoming feature')}
-              title={i18n.t('information')}
-              icon={<FileIcon />}
-              style={{
-                flex: 1,
-                marginLeft: 8,
-                minWidth: 130,
-                borderRadius: 14,
-                backgroundColor: 'white',
-                elevation: 1,
-              }}
-            />
+            {/* "Information" card hidden until its content (GRM guide, procedures) is ready: backlog 16 */}
           </View>
           {/* <View style={{ width: '100%', height: 1, backgroundColor: '#E5E7EB', marginBottom: 8 }} /> */}
         </View>
