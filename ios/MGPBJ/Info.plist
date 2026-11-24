@@ -33,7 +33,7 @@
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>exp+grm-app</string>
+          <string>exp+grm</string>
         </array>
       </dict>
     </array>
