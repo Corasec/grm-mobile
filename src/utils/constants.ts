@@ -4,3 +4,6 @@ export const ConfidentialityChoices = Object.freeze({
   INDIVIDUAL: 'on_behalf_of_someone',
   ORGANIZATION: 'organization_behalf_someone',
 });
+
+// Country calling code used to call / WhatsApp complainants (Benin)
+export const COUNTRY_CALLING_CODE = '229';
