@@ -180,5 +180,6 @@
   "attachment_for_rejection": "Rejection",
   "attachment_for_resolution": "Resolution",
   "attachment_for_escalation": "Escalation",
-  "attachments_added": "attachment(s)"
+  "attachments_added": "attachment(s)",
+  "issue_closed_no_more_comments": "Closed issue: no more comments can be added."
 }

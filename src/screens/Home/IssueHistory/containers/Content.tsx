@@ -14,6 +14,8 @@ import moment from 'moment';
 import { styles } from './Content.styles';
 import { i18n } from '../../../../translations/i18n';
 import { Button, Dialog, Paragraph, Portal, Divider, TextInput } from 'react-native-paper';
+import { useIssueStatus } from '../../../../hooks/issues/useIssueStatus';
+import { isIssueClosed } from '../../../../utils/issueStatus';
 import { colors } from '../../../../utils/colors';
 import ImagePreviewCard from '../../CitizenReportStep2/containers/ImagePreviewCard';
 import { useIssueComments } from '../../../../hooks/issues/useIssueComments';
@@ -44,6 +46,9 @@ function Content({ issue }) {
     refreshComments,
   } = useIssueComments(issue.id);
   const { profile, session } = useSelector((state: any) => state.get('authentication').toObject());
+  const { issueStatusList } = useIssueStatus();
+  // A resolved or rejected issue can no longer receive comments (the server refuses them too)
+  const closed = isIssueClosed(issue.status, issueStatusList ?? []);
   const { newCommentsFlag } = useSelector((state) => state.get('global').toObject());
   const dispatch = useDispatch()
   
@@ -279,6 +284,11 @@ function Content({ issue }) {
               </TouchableOpacity>
             )}
 
+            {closed ? (
+              <Text style={{ paddingBottom: 10, textAlign: 'center', color: colors.secondary }}>
+                {i18n.t('issue_closed_no_more_comments')}
+              </Text>
+            ) : (
             <View style={{ paddingBottom: 10 }}>
               <TextInput
                 theme={theme}
@@ -306,6 +316,7 @@ function Content({ issue }) {
                 value={commentText}
               />
             </View>
+            )}
           </View>
         </TouchableWithoutFeedback>
       </KeyboardAvoidingView>
