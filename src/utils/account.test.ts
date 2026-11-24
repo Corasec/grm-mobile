@@ -1,5 +1,8 @@
 import {
   canProcessIssues,
+  getCoveredVillages,
+  getLocationLabel,
+  getReporterCounters,
   getAccountLabel,
   getIssueTabs,
   getLocationChoices,
@@ -27,7 +30,13 @@ const facilitator = {
   committee: null,
   location: { mode: 'list', regions: [village, village2] },
 };
-const t = (key: string) => ({ account_type_committee: 'Comité', account_type_facilitator: 'Facilitateur' }[key] ?? key);
+const t = (key: string) =>
+  ({
+    account_type_committee: 'Comité',
+    account_type_facilitator: 'Facilitateur',
+    field_role_fc: 'Facilitateur communautaire (FC)',
+    field_role_sc: 'Superviseur communal (SC)',
+  }[key] ?? key);
 
 describe('account type', () => {
   it('recognises committee and facilitator accounts', () => {
@@ -104,5 +113,45 @@ describe('getAccountLabel', () => {
 
   it('describes facilitators', () => {
     expect(getAccountLabel(facilitator, t)).toBe('Facilitateur');
+  });
+});
+
+describe('field staff role', () => {
+  it('shows the exact role of field staff', () => {
+    expect(getAccountLabel({ ...facilitator, field_role: 'FC' }, t)).toBe('Facilitateur communautaire (FC)');
+    expect(getAccountLabel({ ...facilitator, field_role: 'SC' }, t)).toBe('Superviseur communal (SC)');
+  });
+});
+
+describe('getLocationLabel', () => {
+  it('prefers the full location', () => {
+    expect(getLocationLabel(ccgp)).toBe('Bénin / Alibori / Malanville / Guéné / V1');
+    expect(getLocationLabel({ administrative_region: { id: 1, name: 'Bénin' } })).toBe('Bénin');
+    expect(getLocationLabel(null)).toBe('');
+  });
+});
+
+describe('getCoveredVillages', () => {
+  it('lists the covered villages of field staff only', () => {
+    expect(getCoveredVillages(facilitator).map((r) => r.id)).toEqual([11, 12]);
+    expect(getCoveredVillages(clgp)).toEqual([]);
+  });
+});
+
+describe('getReporterCounters', () => {
+  const statuses = [
+    { id: 1 },
+    { id: 2 },
+    { id: 3, rejected_status: true },
+    { id: 4, final_status: true },
+  ];
+  it('counts reported, in progress and closed issues of the reporter', () => {
+    const issues = [
+      { reporter: { id: 7 }, status: { id: 1 } },
+      { reporter: { id: 7 }, status: { id: 4 } },
+      { reporter: 7, status: 3 },
+      { reporter: { id: 8 }, status: { id: 1 } },
+    ];
+    expect(getReporterCounters(issues, 7, statuses)).toEqual({ reported: 3, inProgress: 1, closed: 2 });
   });
 });

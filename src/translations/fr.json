@@ -249,5 +249,11 @@
   "attachment_for_resolution": "Résolution",
   "attachment_for_escalation": "Remontée",
   "attachments_added": "pièce(s) jointe(s)",
-  "issue_closed_no_more_comments": "Plainte clôturée : aucun commentaire ne peut plus être ajouté."
+  "issue_closed_no_more_comments": "Plainte clôturée : aucun commentaire ne peut plus être ajouté.",
+  "field_role_fc": "Facilitateur communautaire (FC)",
+  "field_role_sc": "Superviseur communal (SC)",
+  "in_progress": "En cours",
+  "closed": "Clôturées",
+  "covered_villages": "Villages couverts",
+  "tap_to_show": "Appuyer pour afficher"
 }

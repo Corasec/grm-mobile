@@ -167,5 +167,11 @@
   "attachment_for_resolution": "Resolution",
   "attachment_for_escalation": "Escalation",
   "attachments_added": "attachment(s)",
-  "issue_closed_no_more_comments": "Closed issue: no more comments can be added."
+  "issue_closed_no_more_comments": "Closed issue: no more comments can be added.",
+  "field_role_fc": "Community facilitator (FC)",
+  "field_role_sc": "Communal supervisor (SC)",
+  "in_progress": "In progress",
+  "closed": "Closed",
+  "covered_villages": "Covered villages",
+  "tap_to_show": "Tap to show"
 }
