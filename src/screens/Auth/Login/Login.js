@@ -16,6 +16,8 @@ import EADLLogo from '../../../../assets/eadl-logo.svg';
 import styles from './Login.style';
 import MESSAGES from '../../../utils/formErrorMessages';
 import { emailRegex } from '../../../utils/formUtils';
+import { canLogInOnThisPhone, LOCAL_DATA_OWNER_KEY, normalizeAccount } from '../../../utils/session';
+import { getData, hasUnsentLocalChanges, storeData } from '../../../utils/storageManager';
 import { fetchAuthCredentials } from '../../../services/authService';
 import { i18n } from "../../../translations/i18n";
 import { colors } from '../../../utils/colors';
@@ -42,6 +44,18 @@ function Login()
   {
     setResponseError(null);
     setLoading(true);
+
+    // Unsent data belongs to the account that created it: another account must not send it
+    const owner = await getData(LOCAL_DATA_OWNER_KEY);
+    if (owner && normalizeAccount(owner) !== normalizeAccount(data?.email)) {
+      const hasUnsentData = await hasUnsentLocalChanges();
+      if (!canLogInOnThisPhone(owner, data?.email, hasUnsentData)) {
+        setResponseError(i18n.t('unsent_data_of_other_account', { account: owner }));
+        setLoading(false);
+        return;
+      }
+    }
+
     const response = await fetchAuthCredentials({ username: data?.email, password: data?.password })
         
     if (response.error) {
@@ -50,6 +64,7 @@ function Login()
       return;
     }
 
+    await storeData(LOCAL_DATA_OWNER_KEY, normalizeAccount(data?.email));
     setLoading(false);
     dispatch(login(
       response,

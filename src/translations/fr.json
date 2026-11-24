@@ -266,5 +266,10 @@
   "password_change_mismatch": "La confirmation ne correspond pas au nouveau mot de passe.",
   "password_change_same": "Le nouveau mot de passe doit être différent de l'actuel.",
   "password_change_offline": "Pas de connexion internet. Réessayez quand vous êtes connecté.",
-  "password_change_done": "Votre mot de passe a été modifié. Utilisez-le à votre prochaine connexion."
+  "password_change_done": "Votre mot de passe a été modifié. Utilisez-le à votre prochaine connexion.",
+  "session_rejected_title": "Session refusée par le serveur",
+  "session_rejected_message": "Votre compte a été désactivé ou votre session n'est plus valide. Contactez l'administrateur du MGP.",
+  "session_rejected_unsent_data": "Des plaintes ou actions n'ont pas encore été envoyées. Elles restent sur ce téléphone et partiront quand vous vous reconnecterez avec ce compte.",
+  "retry": "Réessayer",
+  "unsent_data_of_other_account": "Ce téléphone contient des données non envoyées du compte {{account}}. Reconnectez-vous avec ce compte pour les envoyer avant d'utiliser un autre compte."
 }

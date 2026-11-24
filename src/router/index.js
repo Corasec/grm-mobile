@@ -13,7 +13,7 @@ import {
   useFonts,
 } from "@expo-google-fonts/poppins";
 import { syncServiceInstance } from "../services/shared/SyncService";
-import { initialSync } from "../utils/networkMonitor";
+import { initialSync, isSyncInitialized } from "../utils/networkMonitor";
 import { databaseServiceInstance } from "../utils/storageManager";
 
 const Router = ({ theme }) => {
@@ -45,7 +45,7 @@ const Router = ({ theme }) => {
   {
 
       const checkSessionAndSync = async () => {
-        if (!databaseServiceInstance.database && session?.token) {
+        if (!isSyncInitialized() && session?.token) {
           await initialSync();
           setLoading(false);
         } else {
