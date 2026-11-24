@@ -26,6 +26,7 @@ export interface Citizen extends Base {
     group: number,
     group_2: number,
     type: string,
+    gender?: 'male' | 'female' | null,
 }
 
 export interface AdministrativeRegion extends Base {

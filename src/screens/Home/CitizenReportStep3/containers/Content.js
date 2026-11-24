@@ -58,6 +58,7 @@ function Content({ issue, session, profile }) {
         name: issue.name ?? '',
         age_group: issue.ageGroup,
         type: issue.citizen_type,
+        gender: issue.gender ?? null,
         group: issue.citizen_group,
         group_2: issue.citizen_group_2,
       },

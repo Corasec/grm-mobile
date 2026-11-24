@@ -4,6 +4,23 @@ import request from '../../../utils/request';
 import { BaseRemoteRepository } from '../../shared/BaseRemoteRepository';
 import config from '../../../../config';
 
+/**
+ * Citizen payload sent when creating an issue. Related objects may come from the local DB
+ * (objects) or from the creation form (ids). Gender is optional ("male" / "female").
+ */
+export function citizenToBackend(citizen: any) {
+  if (!citizen) return null;
+  const idOf = (value: any) => (value ? (value.id ?? value) : null);
+  return {
+    name: citizen.name,
+    type: citizen.type,
+    gender: citizen.gender || null,
+    age_group: idOf(citizen.age_group),
+    group: idOf(citizen.group),
+    group_2: idOf(citizen.group_2),
+  };
+}
+
 export class IssueRemoteRepository extends BaseRemoteRepository<Issue> {
   private baseUrl = `${config.API_AUTH_BASE_URL}/issues`;
   private nextReporterListPage: string = null;
@@ -143,19 +160,7 @@ export class IssueRemoteRepository extends BaseRemoteRepository<Issue> {
         : null,
       reporter: item.reporter ? (item.reporter.id ?? item.reporter) : null,
       assignee: item.assignee ? (item.assignee.id ?? item.assignee) : null,
-      citizen: item.citizen
-        ? {
-            name: item.citizen.name,
-            type: item.citizen.type,
-            age_group: item.citizen.age_group
-              ? (item.citizen.age_group.id ?? item.citizen.age_group)
-              : null, // coming from local db or creation form
-            group: item.citizen.group ? (item.citizen.group.id ?? item.citizen.group) : null, // coming from local db or creation form
-            group_2: item.citizen.group_2
-              ? (item.citizen.group_2.id ?? item.citizen.group_2)
-              : null, // coming from local db or creation form
-          }
-        : null,
+      citizen: citizenToBackend(item.citizen),
       component: item.component ? (item.component.id ?? item.component) : null,
       sub_component: item.sub_component ? (item.sub_component.id ?? item.sub_component) : null,
       contact_medium: item.contact_medium,
