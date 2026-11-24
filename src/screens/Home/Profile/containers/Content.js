@@ -1,4 +1,5 @@
 import UserAvatar from '@muhzi/react-native-user-avatar';
+import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -29,6 +30,7 @@ function Content({ issues, session, profile, department, statuses }) {
   const [nbProcessedByYou, setNbProcessedByYou] = useState(0);
   const [villagesExpanded, setVillagesExpanded] = useState(false);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   // Field staff (FC / SC) are reporter accounts: they follow the issues they reported
   const reporter = isFacilitator(profile);
   const reporterCounters = getReporterCounters(issues ?? [], profile?.user?.id, statuses ?? []);
@@ -117,6 +119,9 @@ function Content({ issues, session, profile, department, statuses }) {
         </TouchableOpacity>
       )}
       <View style={styles.containerA}>
+        <Button color={colors.primary} icon="key-outline" onPress={() => navigation.navigate('ChangePassword')}>
+          {i18n.t('change_password')}
+        </Button>
         <Button color={colors.primary} onPress={() => dispatch(logout())}>
           {i18n.t('logout')}
         </Button>

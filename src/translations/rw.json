@@ -173,5 +173,16 @@
   "in_progress": "In progress",
   "closed": "Closed",
   "covered_villages": "Covered villages",
-  "tap_to_show": "Tap to show"
+  "tap_to_show": "Tap to show",
+  "change_password": "Change password",
+  "current_password": "Current password",
+  "new_password": "New password",
+  "confirm_new_password": "Confirm the new password",
+  "password_change_help": "At least 8 characters, with letters and digits. An internet connection is needed.",
+  "password_change_fill_all": "Fill in the three fields.",
+  "password_change_rule": "The new password must have at least 8 characters, with letters and digits.",
+  "password_change_mismatch": "The confirmation does not match the new password.",
+  "password_change_same": "The new password must be different from the current one.",
+  "password_change_offline": "No internet connection. Try again once connected.",
+  "password_change_done": "Your password has been changed. Use it next time you log in."
 }

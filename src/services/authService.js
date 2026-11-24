@@ -55,6 +55,25 @@ export async function fetchMobileProfile() {
   }
 }
 
+/**
+ * Change the password of the logged-in account (needs a connection).
+ * The session token stays valid, so offline data and the session are kept.
+ * Returns {} on success or { error: <server message> | { offline: true } }.
+ */
+export async function changePassword(currentPassword, newPassword) {
+  try {
+    await request({
+      url: '/authentication/change-password/',
+      method: 'POST',
+      data: { current_password: currentPassword, new_password: newPassword },
+    });
+    return {};
+  } catch (error) {
+    if (!error?.response) return { error: { offline: true } };
+    return { error: error.response.data?.error || error.message };
+  }
+}
+
 // DRF tokens do not expire: no check / refresh endpoint on the server.
 export async function logout() {
   // Besides removing session from storage. Implement it, if a logout endpoint is available.
