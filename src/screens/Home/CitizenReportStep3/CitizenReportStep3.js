@@ -12,7 +12,8 @@ function CitizenReportStep3({ route }) {
   const customStyles = styles();
   const { session, profile } = useSelector((state) => state.get('authentication').toObject());
   const { getStatus, loading } = useIssueStatus();
-  const openStatus = getStatus('open_status');
+  // A new issue starts in the initial status: the committee must accept or reject it first.
+  const initialStatus = getStatus('initial_status');
   
   if (loading)
       return <ActivityIndicator style={{ marginTop: 50 }} color={colors.primary} size="small" />;
@@ -26,7 +27,7 @@ function CitizenReportStep3({ route }) {
           ...params.stepOneParams,
           ...params.stepTwoParams,
           ...params.stepLocationParams,
-          status: openStatus
+          status: initialStatus
         }}
       />
     </SafeAreaView>
