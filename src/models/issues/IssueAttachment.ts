@@ -10,6 +10,8 @@ export interface IssueAttachment extends Base {
   local_url: string;
   url?: string;
   parent_id: string,
+  // What the file documents, e.g. "Étape : réunion avec le chef de village"
+  description?: string;
 }
 
 export class IssueAttachmentLocalModel extends Model {
@@ -33,5 +35,8 @@ export class IssueAttachmentLocalModel extends Model {
   @field('updated_date') updated_date;
   // @ts-ignore
   @field('parent_id') parent_id;
+
+  // @ts-ignore
+  @text('description') description;
 
 }

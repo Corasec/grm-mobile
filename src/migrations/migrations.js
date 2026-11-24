@@ -17,5 +17,15 @@ export default schemaMigrations({
         }),
       ],
     },
+    {
+      // What an attachment documents (step, rejection, resolution, escalation)
+      toVersion: 3,
+      steps: [
+        addColumns({
+          table: TABLE_NAMES.issueAttachment,
+          columns: [{ name: 'description', type: 'string', isOptional: true }],
+        }),
+      ],
+    },
   ],
 });

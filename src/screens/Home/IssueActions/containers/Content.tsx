@@ -28,6 +28,8 @@ import { styles } from './Content.styles';
 import { ConfidentialityChoices } from '../../../../utils/constants';
 import { canProcessIssues } from '../../../../utils/account';
 import { phoneCallLink, whatsAppLink } from '../../../../utils/phone';
+import { actionAttachmentDescription, buildActionAttachments, isAttachmentAction } from '../../../../utils/actionAttachments';
+import { useIssueAttachments } from '../../../../hooks/issues/useIssueAttachments';
 import { IssueComment } from '../../../../models/issues/IssueComment';
 import { useIssueComments } from '../../../../hooks/issues/useIssueComments';
 import { setNewCommentsFlag } from '../../../../store/ducks/global.duck';
@@ -69,6 +71,7 @@ type Props = {
 function Content({ session, profile, currentIssue, navigation, loading, statuses = [], updateIssue, getStatus }: Props) {
   const [issue, setIssue] = useState(currentIssue);
   const { createIssueComment } = useIssueComments(issue.id, true);
+  const { createAttachment } = useIssueAttachments();
 
   const [acceptDialog, setAcceptDialog] = useState(false);
   const [rejectDialog, setRejectDialog] = useState(false);
@@ -354,15 +357,48 @@ function Content({ session, profile, currentIssue, navigation, loading, statuses
         rejectDialog ||
         ratingDialog
       ) {
+        // Text of the action, captured before the comment state is cleared
+        const actionText = {
+          record_steps: comment,
+          reject: rejectReason,
+          record_resolution: resolution,
+          escalate: escalateComment,
+        }[confirmationDialogType as string];
+
         try {
           await saveIssueStatus(confirmationDialogType);
         } catch (error) {
           alert(error);
           return;
         }
+
+        // Files picked in the action dialog are saved as issue attachments describing the action
+        let attachmentCount = 0;
+        if (isAttachmentAction(confirmationDialogType)) {
+          const items = buildActionAttachments({
+            attachment,
+            recordingURI,
+            parentId: issue.id,
+            description: actionAttachmentDescription(confirmationDialogType, actionText, (key) => i18n.t(key)),
+          });
+          try {
+            for (const item of items) {
+              await createAttachment(item);
+            }
+            attachmentCount = items.length;
+          } catch (error) {
+            alert(error);
+          }
+          setAttachment({});
+          setRecordingURI(undefined);
+        }
+
         try {
           // skip for those which are not creating comments
-          await addActionCommentToHistory();
+          const commentText = comment.length > 0 && attachmentCount > 0
+            ? `${comment} (${i18n.t('attachments_added')} : ${attachmentCount})`
+            : undefined;
+          await addActionCommentToHistory(commentText);
         } catch (error) {
           alert(error);
         }

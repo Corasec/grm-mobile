@@ -8,6 +8,10 @@ import { Syncable } from './types';
 import { databaseServiceInstance } from '../../utils/storageManager';
 import { removeDuplicates } from '../../utils/utils';
 import { Issue } from '../../models/issues/Issue';
+import schema from '../../migrations/appSchema';
+
+// Local database schema version, shown with the app version ("v <app> - <db>") for support.
+export const DB_VERSION = schema.version;
 
 export class SyncService {
   createdRecordsPostPushedWithNewBackendIDsPerTable: {
