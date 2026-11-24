@@ -295,7 +295,9 @@ function Content({ session, profile, currentIssue, navigation, loading, statuses
 
   const escalateIssue = () => {
     try {
-      setComment(`${i18n.t('issue_was_escalated')}: ${escalateComment}`);
+      // The server records the escalation in the history (target committee + reason):
+      // no local comment, to avoid a duplicate entry.
+      setComment('');
       setIssue((prevIssue) => {
         const updatedIssue = {
           ...prevIssue,
