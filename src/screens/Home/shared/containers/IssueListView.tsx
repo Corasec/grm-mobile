@@ -27,6 +27,7 @@ function IssueListView({
   reporterIssueList,
   statuses,
   issueListLoading,
+  availableTabs = ['reported', 'assigned', 'resolved'],
 }: {
   fetchMoreReporterIssueList: (completeList?: Issue[]) => Promise<void>;
   fetchMoreAssigneeIssueList: (completeList?: Issue[]) => Promise<void>;
@@ -35,6 +36,8 @@ function IssueListView({
   reporterIssueList: Issue[];
   statuses: IssueStatus[];
   issueListLoading: boolean;
+  // Facilitators only see the "reported" tab (see utils/account.ts)
+  availableTabs?: Array<'reported' | 'assigned' | 'resolved'>;
 }) {
   const navigation = useNavigation();
   const [selectedId, setSelectedId] = useState(null);
@@ -58,7 +61,7 @@ function IssueListView({
 
   useEffect(() => {
     getSessionData().then((sessionData) => {
-      setUserId(sessionData['user_id']);
+      setUserId(sessionData?.user_id ?? null);
     });
   }, []);
 
@@ -207,69 +210,30 @@ function IssueListView({
             }}
             value={status}
           >
-            <ToggleButton
-              style={{
-                flex: 1,
-                backgroundColor: status === 'reported' ? colors.disabled : colors.white,
-                borderBottomColor: status === 'reported' ? colors.primary : colors.white,
-                borderBottomWidth: 3,
-              }}
-              icon={() => (
-                <View>
-                  <Text
-                    style={{
-                      color: status === 'reported' ? colors.primary : colors.secondary,
-                      fontWeight: status === 'reported' ? 'bold' : 'normal',
-                    }}
-                  >
-                    {i18n.t('reported')}
-                  </Text>
-                </View>
-              )}
-              value="reported"
-            />
-            <ToggleButton
-              style={{
-                flex: 1,
-                backgroundColor: status === 'assigned' ? colors.disabled : colors.white,
-                borderBottomColor: status === 'assigned' ? colors.primary : colors.white,
-                borderBottomWidth: 3,
-              }}
-              icon={() => (
-                <View>
-                  <Text
-                    style={{
-                      color: status === 'assigned' ? colors.primary : colors.secondary,
-                      fontWeight: status === 'assigned' ? 'bold' : 'normal',
-                    }}
-                  >
-                    {i18n.t('assigned')}
-                  </Text>
-                </View>
-              )}
-              value="assigned"
-            />
-            <ToggleButton
-              style={{
-                flex: 1,
-                backgroundColor: status === 'resolved' ? colors.disabled : colors.white,
-                borderBottomColor: status === 'resolved' ? colors.primary : colors.white,
-                borderBottomWidth: 3,
-              }}
-              icon={() => (
-                <View>
-                  <Text
-                    style={{
-                      color: status === 'resolved' ? colors.primary : colors.secondary,
-                      fontWeight: status === 'resolved' ? 'bold' : 'normal',
-                    }}
-                  >
-                    {i18n.t('resolved')}
-                  </Text>
-                </View>
-              )}
-              value="resolved"
-            />
+            {availableTabs.map((tab) => (
+              <ToggleButton
+                key={tab}
+                style={{
+                  flex: 1,
+                  backgroundColor: status === tab ? colors.disabled : colors.white,
+                  borderBottomColor: status === tab ? colors.primary : colors.white,
+                  borderBottomWidth: 3,
+                }}
+                icon={() => (
+                  <View>
+                    <Text
+                      style={{
+                        color: status === tab ? colors.primary : colors.secondary,
+                        fontWeight: status === tab ? 'bold' : 'normal',
+                      }}
+                    >
+                      {i18n.t(tab)}
+                    </Text>
+                  </View>
+                )}
+                value={tab}
+              />
+            ))}
           </ToggleButton.Row>
           <FlatList
             ref={issuesListRef}

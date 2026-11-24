@@ -33,7 +33,7 @@ function Profile() {
           ]}
           session={session}
           profile={profile}
-          department={profile.department ?? {}}
+          department={profile?.committee?.department ?? {}}
           statuses={issueStatusList}
         />
       </ScrollView>

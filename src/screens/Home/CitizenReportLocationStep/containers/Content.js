@@ -12,6 +12,7 @@ import { i18n } from "../../../../translations/i18n";
 import { styles } from './Content.styles';
 import { colors } from '../../../../utils/colors';
 import CustomDropDownPicker from '../../../../components/CustomDropDownPicker/CustomDropDownPicker';
+import { getLocationChoices } from '../../../../utils/account';
 
 const theme = {
   roundness: 12,
@@ -23,7 +24,7 @@ const theme = {
   },
 };
 
-export function Content({ stepOneParams, stepTwoParams, issueCommunes, uniqueRegion }) { 
+export function Content({ stepOneParams, stepTwoParams, issueCommunes, profile }) {
   const navigation = useNavigation();
   const [communes, setCommunes] = useState(issueCommunes);
   const [region, setRegion] = useState(null);
@@ -88,12 +89,15 @@ export function Content({ stepOneParams, stepTwoParams, issueCommunes, uniqueReg
   //   return _communes;
   // };
 
-  const formattedTopLevelCommunes = useMemo(() => {
-    if (!communes?.length) return [];
-    // return filterCommunes(null);
-    return communes;
-  }, [communes]);
-  
+  // Locations depend on the account (see utils/account.ts):
+  // CCGP -> its village (fixed); CLGP -> its commune and villages; facilitator -> covered villages;
+  // national committee -> any region.
+  const { fixedRegion, items: locationItems } = useMemo(
+    () => getLocationChoices(profile, communes ?? []),
+    [profile, communes]
+  );
+  const uniqueRegion = fixedRegion;
+
   return (
     <View>
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null}>
@@ -102,7 +106,14 @@ export function Content({ stepOneParams, stepTwoParams, issueCommunes, uniqueReg
           <Text style={styles.stepDescription}>{i18n.t('step_location_description')}</Text>
           <Text style={styles.stepNote}>{i18n.t('step_location_body')}</Text>
         </View>
-        {!uniqueRegion && communes && (
+        {uniqueRegion && (
+          <View style={{ paddingHorizontal: 50 }}>
+            <Text style={styles.stepNote}>
+              {i18n.t('step_location_fixed')}: {uniqueRegion.hierarchical_name || uniqueRegion.name}
+            </Text>
+          </View>
+        )}
+        {!uniqueRegion && locationItems && (
           <View key="firstLevel">
             <CustomDropDownPicker
               schema={{
@@ -120,7 +131,7 @@ export function Content({ stepOneParams, stepTwoParams, issueCommunes, uniqueReg
               placeholder={i18n.t('step_location_dropdown_placeholder')}
               value={region}
               disabled={!!uniqueRegion}
-              items={formattedTopLevelCommunes}
+              items={locationItems}
               setPickerValue={(val) => {
                 setRegion(val());
                 // if (val() && val() !== commune1) handlePickCommune(val());
