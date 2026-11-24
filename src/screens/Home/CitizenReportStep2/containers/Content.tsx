@@ -433,6 +433,8 @@ function Content({ stepOneParams, issueCategories, issueTypes, issueSubTypes, is
             onSelectItem={(item) => setSelectedIssueComponent(item)}
           />
         </View>
+        {/* Subcomponents are optional: only shown when the selected component has some */}
+        {filteredSubComponents.length > 0 && (
         <View>
           <CustomDropDownPicker
             schema={{
@@ -454,6 +456,7 @@ function Content({ stepOneParams, issueCategories, issueTypes, issueSubTypes, is
             }
           />
         </View>
+        )}
 
         <View style={{ paddingHorizontal: 50 }}>
           <TextInput
