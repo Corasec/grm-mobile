@@ -21,6 +21,9 @@ class IssueAttachmentRemoteRepository extends BaseRemoteRepository<IssueAttachme
       type: item.is_audio ? 'audio/mpeg' : 'image/png',
       name: item.name,
     });
+    if (item.description) {
+      formData.append('description', item.description);
+    }
 
     const requestOptions = {
       url,

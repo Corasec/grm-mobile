@@ -243,5 +243,10 @@
   "account_type_committee": "Comité",
   "account_type_facilitator": "Facilitateur",
   "step_location_fixed": "Lieu de la plainte",
-  "issue_read_only_for_facilitator": "Consultation uniquement : cette plainte est traitée par le comité auquel elle est affectée."
+  "issue_read_only_for_facilitator": "Consultation uniquement : cette plainte est traitée par le comité auquel elle est affectée.",
+  "attachment_for_step": "Étape",
+  "attachment_for_rejection": "Rejet",
+  "attachment_for_resolution": "Résolution",
+  "attachment_for_escalation": "Remontée",
+  "attachments_added": "pièce(s) jointe(s)"
 }

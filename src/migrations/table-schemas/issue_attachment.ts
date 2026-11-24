@@ -13,5 +13,6 @@ export const issueAttachmentTableSchema: TableSchema = tableSchema({
     { name: 'url', type: 'string' },
     { name: 'updated_date', type: 'number' },
     { name: 'parent_id', type: 'string', isIndexed: true },
+    { name: 'description', type: 'string', isOptional: true },
   ],
 });

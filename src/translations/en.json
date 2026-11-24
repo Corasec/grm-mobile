@@ -175,5 +175,10 @@
   "account_type_committee": "Committee",
   "account_type_facilitator": "Facilitator",
   "step_location_fixed": "Issue location",
-  "issue_read_only_for_facilitator": "Read only: this issue is handled by the committee it is assigned to."
+  "issue_read_only_for_facilitator": "Read only: this issue is handled by the committee it is assigned to.",
+  "attachment_for_step": "Step",
+  "attachment_for_rejection": "Rejection",
+  "attachment_for_resolution": "Resolution",
+  "attachment_for_escalation": "Escalation",
+  "attachments_added": "attachment(s)"
 }

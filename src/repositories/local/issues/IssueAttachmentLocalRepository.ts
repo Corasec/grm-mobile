@@ -49,7 +49,8 @@ export class IssueAttachmentLocalRepository extends BaseLocalRepository<IssueAtt
       url: localModel.url,
       is_audio: localModel.is_audio,
       parent_id: localModel.parent_id,
-      file_name: localModel.file_name
+      file_name: localModel.file_name,
+      description: localModel.description ?? '',
     };
   }
 }

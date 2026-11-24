@@ -345,6 +345,7 @@ function Content({ issue, attachments, refetchAttachment }) {
                 );
 
               return (
+                <View key={attachment.id} style={{ alignItems: 'center', maxWidth: '100%' }}>
                 <View style={{ flexDirection: 'row', maxWidth: '100%', justifyContent: 'center' }}>
                   {!isAudio && (attachment.file || attachment.local_url || attachment.url) && (
                     <ImagePreviewCard
@@ -363,6 +364,13 @@ function Content({ issue, attachments, refetchAttachment }) {
                       initialURI={attachment.file ?? attachment.local_url}
                     />
                   )}
+                </View>
+                {/* Which action the file documents (step, rejection, resolution, escalation) */}
+                {!!attachment.description && (
+                  <Text style={{ color: colors.secondary, fontSize: 12, marginBottom: 8, textAlign: 'center' }}>
+                    {attachment.description}
+                  </Text>
+                )}
                 </View>
               );
             })}
