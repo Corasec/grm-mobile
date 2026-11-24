@@ -27,6 +27,7 @@ import RejectDialog from '../components/RejectDialog';
 import { styles } from './Content.styles';
 import { ConfidentialityChoices } from '../../../../utils/constants';
 import { canProcessIssues } from '../../../../utils/account';
+import { phoneCallLink, whatsAppLink } from '../../../../utils/phone';
 import { IssueComment } from '../../../../models/issues/IssueComment';
 import { useIssueComments } from '../../../../hooks/issues/useIssueComments';
 import { setNewCommentsFlag } from '../../../../store/ducks/global.duck';
@@ -53,8 +54,6 @@ const theme = {
   },
 };
 
-const WHATSAPP_LINK = 'http://api.whatsapp.com/send?phone=223';
-const PHONE_CALL_LINK = 'tel://+223';
 
 type Props = {
   currentIssue: any;
@@ -169,7 +168,7 @@ function Content({ session, profile, currentIssue, navigation, loading, statuses
   };
 
   const whatsApp = () => {
-    Linking.openURL(WHATSAPP_LINK + issue.contact_information)
+    Linking.openURL(whatsAppLink(issue.contact_information))
       .then((value) => {
         console.log('whatsapp result: ', value);
       })
@@ -179,7 +178,7 @@ function Content({ session, profile, currentIssue, navigation, loading, statuses
   };
 
   const phoneCall = () => {
-    Linking.openURL(PHONE_CALL_LINK + issue.contact_information)
+    Linking.openURL(phoneCallLink(issue.contact_information))
       .then((value) => {
         console.log('phone_call result: ', value);
       })
