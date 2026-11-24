@@ -1,7 +1,7 @@
 import request from '../../../utils/request';
 import { BaseRemoteRepository } from '../../shared/BaseRemoteRepository';
 import { IssueComment } from '../../../models/issues/IssueComment';
-import { config } from '../../../../config.dev';
+import config from '../../../../config';
 import { SortOrder } from '@nozbe/watermelondb/QueryDescription';
 
 class IssueCommentRemoteRepository extends BaseRemoteRepository<IssueComment> {

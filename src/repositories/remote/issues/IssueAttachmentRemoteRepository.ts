@@ -1,6 +1,6 @@
 import request, { client } from '../../../utils/request';
 import { BaseRemoteRepository } from '../../shared/BaseRemoteRepository';
-import { config } from '../../../../config.dev';
+import config from '../../../../config';
 import { SortOrder } from '@nozbe/watermelondb/QueryDescription';
 import { IssueAttachment } from '../../../models/issues/IssueAttachment';
 
