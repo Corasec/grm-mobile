@@ -248,5 +248,6 @@
   "attachment_for_rejection": "Rejet",
   "attachment_for_resolution": "Résolution",
   "attachment_for_escalation": "Remontée",
-  "attachments_added": "pièce(s) jointe(s)"
+  "attachments_added": "pièce(s) jointe(s)",
+  "issue_closed_no_more_comments": "Plainte clôturée : aucun commentaire ne peut plus être ajouté."
 }
