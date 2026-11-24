@@ -208,6 +208,17 @@ This document provides an overview of the available API endpoints for managing i
 
 ---
 
+### Change My Password
+
+**Endpoint:** `POST /authentication/change-password/` (header `Authorization: Token <token>`)
+
+Used by *Profile → Change password*. The token stays valid: the session and the offline data are kept.
+
+Body: `current_password`, `new_password`.
+
+- `200`: `{ "message": "..." }`
+- `400`: `{ "error": "..." }` — wrong current password, new password shorter than 8 characters or without letters and digits, or identical to the current one.
+
 ## Issue Management Endpoints
 
 ### Create an Issue

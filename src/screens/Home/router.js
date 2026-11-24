@@ -18,6 +18,7 @@ import RegisterSubprojects from './RegisterSubprojects/RegisterSubprojects';
 import RegisterVotesActivity from './RegisterVotesActivity/RegisterVotesActivity';
 import BudgetAllocation from './BudgetAllocation/BudgetAllocation';
 import BudgetLog from './BudgetLog/BudgetLog';
+import ChangePassword from './ChangePassword/ChangePassword';
 import GRM from './GRM/GRM';
 import CitizenReportContactMethod from './CitizenReportContactMethod/CitizenReportContactMethod';
 import CitizenReportStep2 from './CitizenReportStep2/CitizenReportStep2';
@@ -236,6 +237,11 @@ function ProfileStackScreen() {
         })
         }
         component={Profile}
+      />
+      <ProfileStack.Screen
+        name="ChangePassword"
+        options={({ navigation, route }) => customHeaderOptions(i18n.t('change_password'))}
+        component={ChangePassword}
       />
     </ProfileStack.Navigator>
   );

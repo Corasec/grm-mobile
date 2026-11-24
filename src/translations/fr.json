@@ -255,5 +255,16 @@
   "in_progress": "En cours",
   "closed": "Clôturées",
   "covered_villages": "Villages couverts",
-  "tap_to_show": "Appuyer pour afficher"
+  "tap_to_show": "Appuyer pour afficher",
+  "change_password": "Changer le mot de passe",
+  "current_password": "Mot de passe actuel",
+  "new_password": "Nouveau mot de passe",
+  "confirm_new_password": "Confirmer le nouveau mot de passe",
+  "password_change_help": "Au moins 8 caractères, avec des lettres et des chiffres. Une connexion internet est nécessaire.",
+  "password_change_fill_all": "Remplissez les trois champs.",
+  "password_change_rule": "Le nouveau mot de passe doit contenir au moins 8 caractères, avec des lettres et des chiffres.",
+  "password_change_mismatch": "La confirmation ne correspond pas au nouveau mot de passe.",
+  "password_change_same": "Le nouveau mot de passe doit être différent de l'actuel.",
+  "password_change_offline": "Pas de connexion internet. Réessayez quand vous êtes connecté.",
+  "password_change_done": "Votre mot de passe a été modifié. Utilisez-le à votre prochaine connexion."
 }
