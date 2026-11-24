@@ -1,5 +1,5 @@
 import request from '../../../utils/request';
-import { config } from '../../../../config.dev';
+import config from '../../../../config';
 import { IssueStatus } from '../../../models/issues/IssueStatus';
 import { BaseRemoteRepository } from '../../shared/BaseRemoteRepository';
 
