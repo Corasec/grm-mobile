@@ -207,11 +207,7 @@ function Content({ stepOneParams, issueAges, citizenGroups }) {
 
   function onNext(): (() => void) | (() => void) {
     return () => {
-      if (!name) {
-        setNameError('This field is required');
-        showToast(i18n.t('please_choose_value_for_required_field'));
-        return;
-      }
+      // The complainant may stay anonymous: the name is optional.
       const payload = {
         ...stepOneParams,
         name,

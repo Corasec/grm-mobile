@@ -525,15 +525,8 @@ function Content({ stepOneParams, issueCategories, issueTypes, issueSubTypes, is
             labelStyle={{ color: 'white', fontFamily: 'Poppins_500Medium' }}
             mode="contained"
             onPress={() => {
-              if (
-                selectedIssueType === null ||
-                selectedIssueSubType === null ||
-                pickerCategory === null ||
-                !additionalDetails
-              ) {
-                if (!additionalDetails) {
-                  setAdditionalDetailsError('This field is required');
-                }
+              // Only the categorisation (type, subtype, category) is mandatory; the description is optional.
+              if (selectedIssueType === null || selectedIssueSubType === null || pickerCategory === null) {
                 showToast(i18n.t('please_choose_value_for_required_field'));
                 return;
               }
