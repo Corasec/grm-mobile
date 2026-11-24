@@ -387,6 +387,27 @@ exports[`IssueList renders with empty arrays 1`] = `
           </View>
         </View>
         <View
+          style={
+            {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
+              "marginTop": 50,
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "gray",
+                "fontSize": 18,
+              }
+            }
+          >
+            Aucun résultat trouvé
+          </Text>
+        </View>
+        <View
           onLayout={[Function]}
         />
       </View>
@@ -780,6 +801,27 @@ exports[`IssueList renders without crashing when no lists provided 1`] = `
               </Text>
             </View>
           </View>
+        </View>
+        <View
+          style={
+            {
+              "alignItems": "center",
+              "flex": 1,
+              "justifyContent": "center",
+              "marginTop": 50,
+            }
+          }
+        >
+          <Text
+            style={
+              {
+                "color": "gray",
+                "fontSize": 18,
+              }
+            }
+          >
+            Aucun résultat trouvé
+          </Text>
         </View>
         <View
           onLayout={[Function]}

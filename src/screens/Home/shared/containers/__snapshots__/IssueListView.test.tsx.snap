@@ -374,6 +374,27 @@ exports[`IssueListView renders without crashing 1`] = `
         </View>
       </View>
       <View
+        style={
+          {
+            "alignItems": "center",
+            "flex": 1,
+            "justifyContent": "center",
+            "marginTop": 50,
+          }
+        }
+      >
+        <Text
+          style={
+            {
+              "color": "gray",
+              "fontSize": 18,
+            }
+          }
+        >
+          No results found
+        </Text>
+      </View>
+      <View
         onLayout={[Function]}
       />
     </View>

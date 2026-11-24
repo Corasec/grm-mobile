@@ -155,8 +155,9 @@ function IssueListView({
     );
   }
 
+  // Must return the element: without "return" the list showed a blank screen when empty
   const renderEmpty = () => {
-              issueListLoading ?
+    return issueListLoading ?
                 <ActivityIndicator
                   style={{ paddingVertical: 20 }}
                   color={colors.primary}
