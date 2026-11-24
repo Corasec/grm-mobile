@@ -15,7 +15,7 @@ import { login } from '../../../store/ducks/authentication.duck';
 import EADLLogo from '../../../../assets/eadl-logo.svg';
 import styles from './Login.style';
 import MESSAGES from '../../../utils/formErrorMessages';
-import { emailRegex, passwordRegex } from '../../../utils/formUtils';
+import { emailRegex } from '../../../utils/formUtils';
 import { fetchAuthCredentials } from '../../../services/authService';
 import { i18n } from "../../../translations/i18n";
 import { colors } from '../../../utils/colors';
@@ -162,18 +162,8 @@ function Login()
                         value: true,
                         message: MESSAGES.required,
                       },
-                      minLength: {
-                        value: 8,
-                        message: MESSAGES.minLength,
-                      },
-                      pattern: {
-                        value: passwordRegex,
-                        message: MESSAGES.password,
-                      },
-                      maxLength: {
-                        value: 40,
-                        message: MESSAGES.maxLength,
-                      },
+                      // No strength rule at login: the server checks the password (accounts created in the
+                      // dashboard may use any password). The rule belongs to the password change screen.
                     }}
                     defaultValue=""
                   />

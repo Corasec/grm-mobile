@@ -99,12 +99,18 @@ describe('IssueListView', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  // TODO (backlog #27): pre-existing failure, the empty state is not rendered in the Jest environment.
-  it.skip('shows empty state when no issues', () => {
+  it('shows empty state when no issues', () => {
     const tree = render(defaultProps);
     const instance = tree.root;
     const emptyText = instance.findByProps({ children: 'No results found' });
     expect(emptyText).toBeDefined();
+  });
+
+  it('shows a loading indicator instead of the empty state while loading', () => {
+    const tree = render({ ...defaultProps, issueListLoading: true });
+
+    expect(tree.root.findAllByProps({ children: 'No results found' })).toHaveLength(0);
+    expect(tree.root.findAllByType(require('react-native').ActivityIndicator).length).toBeGreaterThanOrEqual(1);
   });
 
   it('renders reported issues when status is reported', () => {

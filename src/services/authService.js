@@ -55,39 +55,7 @@ export async function fetchMobileProfile() {
   }
 }
 
-export async function checkToken()
-{
-  const myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
-  const requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-  };
-  const result = fetch(`${baseURL}/authentication/check-token/`, requestOptions)
-    .then((response) => response.json())
-    .then(handleErrors)
-    .then((a) => a)
-    .catch((error) => ({ error }));
-  return result;
-}
-
-export async function refreshToken()
-{
-  const myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
-  const requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-  };
-  const result = fetch(`${baseURL}/authentication/refresh-token/`, requestOptions)
-    .then((response) => response.json())
-    .then(handleErrors)
-    .then((a) => a)
-    .catch((error) => ({ error }));
-  return result;
-}
-
-
+// DRF tokens do not expire: no check / refresh endpoint on the server.
 export async function logout() {
   // Besides removing session from storage. Implement it, if a logout endpoint is available.
 }
