@@ -1,0 +1,791 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`IssueList renders with empty arrays 1`] = `
+<RCTSafeAreaView
+  style={
+    [
+      {
+        "backgroundColor": "white",
+        "flex": 1,
+      },
+      {
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexDirection": "row",
+          },
+          {
+            "justifyContent": "space-between",
+            "padding": 10,
+          },
+        ]
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "disabled": false,
+            "selected": true,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 6,
+            "left": 6,
+            "right": 6,
+            "top": 6,
+          }
+        }
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            [
+              {
+                "alignItems": "center",
+                "justifyContent": "center",
+                "margin": 6,
+                "overflow": "hidden",
+              },
+              {
+                "borderRadius": 18,
+                "height": 36,
+                "width": 36,
+              },
+              undefined,
+              [
+                {
+                  "height": 42,
+                  "margin": 0,
+                  "width": 42,
+                },
+                {
+                  "backgroundColor": "rgba(0, 0, 0, .08)",
+                  "borderColor": "rgba(0, 0, 0, 0.29)",
+                  "borderRadius": 4,
+                },
+                [
+                  {
+                    "borderWidth": 0.5,
+                  },
+                  {
+                    "borderBottomRightRadius": 0,
+                    "borderTopRightRadius": 0,
+                  },
+                  {
+                    "backgroundColor": "#eeeeee",
+                    "borderBottomColor": "#24c38b",
+                    "borderBottomWidth": 3,
+                    "flex": 1,
+                  },
+                ],
+              ],
+            ],
+          ]
+        }
+      >
+        <View>
+          <View>
+            <Text
+              style={
+                {
+                  "color": "#24c38b",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Réportée
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "disabled": false,
+            "selected": false,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 6,
+            "left": 6,
+            "right": 6,
+            "top": 6,
+          }
+        }
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            [
+              {
+                "alignItems": "center",
+                "justifyContent": "center",
+                "margin": 6,
+                "overflow": "hidden",
+              },
+              {
+                "borderRadius": 18,
+                "height": 36,
+                "width": 36,
+              },
+              undefined,
+              [
+                {
+                  "height": 42,
+                  "margin": 0,
+                  "width": 42,
+                },
+                {
+                  "backgroundColor": "transparent",
+                  "borderColor": "rgba(0, 0, 0, 0.29)",
+                  "borderRadius": 4,
+                },
+                [
+                  {
+                    "borderWidth": 0.5,
+                  },
+                  {
+                    "borderLeftWidth": 0,
+                    "borderRadius": 0,
+                  },
+                  {
+                    "backgroundColor": "#ffffff",
+                    "borderBottomColor": "#ffffff",
+                    "borderBottomWidth": 3,
+                    "flex": 1,
+                  },
+                ],
+              ],
+            ],
+          ]
+        }
+      >
+        <View>
+          <View>
+            <Text
+              style={
+                {
+                  "color": "#707070",
+                  "fontWeight": "normal",
+                }
+              }
+            >
+              Assignée
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "disabled": false,
+            "selected": false,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 6,
+            "left": 6,
+            "right": 6,
+            "top": 6,
+          }
+        }
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            [
+              {
+                "alignItems": "center",
+                "justifyContent": "center",
+                "margin": 6,
+                "overflow": "hidden",
+              },
+              {
+                "borderRadius": 18,
+                "height": 36,
+                "width": 36,
+              },
+              undefined,
+              [
+                {
+                  "height": 42,
+                  "margin": 0,
+                  "width": 42,
+                },
+                {
+                  "backgroundColor": "transparent",
+                  "borderColor": "rgba(0, 0, 0, 0.29)",
+                  "borderRadius": 4,
+                },
+                [
+                  {
+                    "borderWidth": 0.5,
+                  },
+                  {
+                    "borderBottomLeftRadius": 0,
+                    "borderLeftWidth": 0,
+                    "borderTopLeftRadius": 0,
+                  },
+                  {
+                    "backgroundColor": "#ffffff",
+                    "borderBottomColor": "#ffffff",
+                    "borderBottomWidth": 3,
+                    "flex": 1,
+                  },
+                ],
+              ],
+            ],
+          ]
+        }
+      >
+        <View>
+          <View>
+            <Text
+              style={
+                {
+                  "color": "#707070",
+                  "fontWeight": "normal",
+                }
+              }
+            >
+              Résolue
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <RCTScrollView
+      ListEmptyComponent={[Function]}
+      ListFooterComponent={[Function]}
+      ListHeaderComponent={[Function]}
+      bounces={true}
+      data={[]}
+      extraData={null}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      keyExtractor={[Function]}
+      onContentSizeChange={[Function]}
+      onEndReached={[Function]}
+      onLayout={[Function]}
+      onMomentumScrollBegin={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={0.0001}
+      stickyHeaderIndices={[]}
+      style={
+        {
+          "flex": 1,
+        }
+      }
+      viewabilityConfigCallbackPairs={[]}
+    >
+      <View>
+        <View
+          collapsable={false}
+          onLayout={[Function]}
+        >
+          <View>
+            <View
+              style={
+                {
+                  "paddingLeft": 15,
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "borderBottomColor": "#dedede",
+                    "borderBottomWidth": 1,
+                    "color": "#24c38b",
+                    "fontSize": 14,
+                    "fontStyle": "normal",
+                    "fontWeight": "bold",
+                    "letterSpacing": 0,
+                    "padding": 10,
+                    "textAlign": "left",
+                    "textTransform": "uppercase",
+                  }
+                }
+              >
+                Liste de vos plaintes
+                 
+                Réportée
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+        />
+      </View>
+    </RCTScrollView>
+  </View>
+</RCTSafeAreaView>
+`;
+
+exports[`IssueList renders without crashing when no lists provided 1`] = `
+<RCTSafeAreaView
+  style={
+    [
+      {
+        "backgroundColor": "white",
+        "flex": 1,
+      },
+      {
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      {
+        "flex": 1,
+      }
+    }
+  >
+    <View
+      style={
+        [
+          {
+            "flexDirection": "row",
+          },
+          {
+            "justifyContent": "space-between",
+            "padding": 10,
+          },
+        ]
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "disabled": false,
+            "selected": true,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 6,
+            "left": 6,
+            "right": 6,
+            "top": 6,
+          }
+        }
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            [
+              {
+                "alignItems": "center",
+                "justifyContent": "center",
+                "margin": 6,
+                "overflow": "hidden",
+              },
+              {
+                "borderRadius": 18,
+                "height": 36,
+                "width": 36,
+              },
+              undefined,
+              [
+                {
+                  "height": 42,
+                  "margin": 0,
+                  "width": 42,
+                },
+                {
+                  "backgroundColor": "rgba(0, 0, 0, .08)",
+                  "borderColor": "rgba(0, 0, 0, 0.29)",
+                  "borderRadius": 4,
+                },
+                [
+                  {
+                    "borderWidth": 0.5,
+                  },
+                  {
+                    "borderBottomRightRadius": 0,
+                    "borderTopRightRadius": 0,
+                  },
+                  {
+                    "backgroundColor": "#eeeeee",
+                    "borderBottomColor": "#24c38b",
+                    "borderBottomWidth": 3,
+                    "flex": 1,
+                  },
+                ],
+              ],
+            ],
+          ]
+        }
+      >
+        <View>
+          <View>
+            <Text
+              style={
+                {
+                  "color": "#24c38b",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              Réportée
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "disabled": false,
+            "selected": false,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 6,
+            "left": 6,
+            "right": 6,
+            "top": 6,
+          }
+        }
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            [
+              {
+                "alignItems": "center",
+                "justifyContent": "center",
+                "margin": 6,
+                "overflow": "hidden",
+              },
+              {
+                "borderRadius": 18,
+                "height": 36,
+                "width": 36,
+              },
+              undefined,
+              [
+                {
+                  "height": 42,
+                  "margin": 0,
+                  "width": 42,
+                },
+                {
+                  "backgroundColor": "transparent",
+                  "borderColor": "rgba(0, 0, 0, 0.29)",
+                  "borderRadius": 4,
+                },
+                [
+                  {
+                    "borderWidth": 0.5,
+                  },
+                  {
+                    "borderLeftWidth": 0,
+                    "borderRadius": 0,
+                  },
+                  {
+                    "backgroundColor": "#ffffff",
+                    "borderBottomColor": "#ffffff",
+                    "borderBottomWidth": 3,
+                    "flex": 1,
+                  },
+                ],
+              ],
+            ],
+          ]
+        }
+      >
+        <View>
+          <View>
+            <Text
+              style={
+                {
+                  "color": "#707070",
+                  "fontWeight": "normal",
+                }
+              }
+            >
+              Assignée
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        accessibilityRole="button"
+        accessibilityState={
+          {
+            "disabled": false,
+            "selected": false,
+          }
+        }
+        accessibilityValue={
+          {
+            "max": undefined,
+            "min": undefined,
+            "now": undefined,
+            "text": undefined,
+          }
+        }
+        accessible={true}
+        focusable={true}
+        hitSlop={
+          {
+            "bottom": 6,
+            "left": 6,
+            "right": 6,
+            "top": 6,
+          }
+        }
+        onClick={[Function]}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          [
+            false,
+            [
+              {
+                "alignItems": "center",
+                "justifyContent": "center",
+                "margin": 6,
+                "overflow": "hidden",
+              },
+              {
+                "borderRadius": 18,
+                "height": 36,
+                "width": 36,
+              },
+              undefined,
+              [
+                {
+                  "height": 42,
+                  "margin": 0,
+                  "width": 42,
+                },
+                {
+                  "backgroundColor": "transparent",
+                  "borderColor": "rgba(0, 0, 0, 0.29)",
+                  "borderRadius": 4,
+                },
+                [
+                  {
+                    "borderWidth": 0.5,
+                  },
+                  {
+                    "borderBottomLeftRadius": 0,
+                    "borderLeftWidth": 0,
+                    "borderTopLeftRadius": 0,
+                  },
+                  {
+                    "backgroundColor": "#ffffff",
+                    "borderBottomColor": "#ffffff",
+                    "borderBottomWidth": 3,
+                    "flex": 1,
+                  },
+                ],
+              ],
+            ],
+          ]
+        }
+      >
+        <View>
+          <View>
+            <Text
+              style={
+                {
+                  "color": "#707070",
+                  "fontWeight": "normal",
+                }
+              }
+            >
+              Résolue
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+    <RCTScrollView
+      ListEmptyComponent={[Function]}
+      ListFooterComponent={[Function]}
+      ListHeaderComponent={[Function]}
+      bounces={true}
+      data={[]}
+      extraData={null}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      keyExtractor={[Function]}
+      onContentSizeChange={[Function]}
+      onEndReached={[Function]}
+      onLayout={[Function]}
+      onMomentumScrollBegin={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={0.0001}
+      stickyHeaderIndices={[]}
+      style={
+        {
+          "flex": 1,
+        }
+      }
+      viewabilityConfigCallbackPairs={[]}
+    >
+      <View>
+        <View
+          collapsable={false}
+          onLayout={[Function]}
+        >
+          <View>
+            <View
+              style={
+                {
+                  "paddingLeft": 15,
+                }
+              }
+            >
+              <Text
+                style={
+                  {
+                    "borderBottomColor": "#dedede",
+                    "borderBottomWidth": 1,
+                    "color": "#24c38b",
+                    "fontSize": 14,
+                    "fontStyle": "normal",
+                    "fontWeight": "bold",
+                    "letterSpacing": 0,
+                    "padding": 10,
+                    "textAlign": "left",
+                    "textTransform": "uppercase",
+                  }
+                }
+              >
+                Liste de vos plaintes
+                 
+                Réportée
+              </Text>
+            </View>
+          </View>
+        </View>
+        <View
+          onLayout={[Function]}
+        />
+      </View>
+    </RCTScrollView>
+  </View>
+</RCTSafeAreaView>
+`;

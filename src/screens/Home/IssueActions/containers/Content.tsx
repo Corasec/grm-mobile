@@ -26,6 +26,7 @@ import RecordStepsDialog from '../components/RecordStepsDialog';
 import RejectDialog from '../components/RejectDialog';
 import { styles } from './Content.styles';
 import { ConfidentialityChoices } from '../../../../utils/constants';
+import { canProcessIssues } from '../../../../utils/account';
 import { IssueComment } from '../../../../models/issues/IssueComment';
 import { useIssueComments } from '../../../../hooks/issues/useIssueComments';
 import { setNewCommentsFlag } from '../../../../store/ducks/global.duck';
@@ -449,7 +450,8 @@ function Content({ session, profile, currentIssue, navigation, loading, statuses
           isRecordResolutionEnabled,
           _showRecordResolutionDialog,
           _showEscalateDialog,
-          disableEscalation
+          disableEscalation,
+          !canProcessIssues(profile)
         )}
       </KeyboardAvoidingView>
 
@@ -569,7 +571,8 @@ function renderHeaderAndActions(
   isRecordResolutionEnabled: boolean,
   _showRecordResolutionDialog: () => void,
   _showEscalateDialog: () => void,
-  disableEscalation: boolean
+  disableEscalation: boolean,
+  readOnly: boolean
 ) {
   return (
     <View style={{ padding: 23 }}>
@@ -633,42 +636,53 @@ function renderHeaderAndActions(
           </>
         )}
       </View>
-      {/* ACTION BUTTONS */}
-      <View
-        style={{ borderWidth: 1, borderRadius: 15, padding: 15, borderColor: colors.lightgray }}
-      >
-        {/* Actions */}
+      {/* Facilitators follow issues but never process them: committees do. */}
+      {readOnly ? (
+        <View style={{ borderWidth: 1, borderRadius: 15, padding: 15, borderColor: colors.lightgray }}>
+          <Paragraph style={{ textAlign: 'center', color: colors.secondary }}>
+            {i18n.t('issue_read_only_for_facilitator')}
+          </Paragraph>
+        </View>
+      ) : (
+        <>
+        {/* ACTION BUTTONS */}
+        <View
+          style={{ borderWidth: 1, borderRadius: 15, padding: 15, borderColor: colors.lightgray }}
+        >
+          {/* Actions */}
+          <ActionButton
+            label={i18n.t('accept_issue')}
+            tooltipLabel={i18n.t('accept_issue_help_description')}
+            onShowDialog={_showDialog}
+            isEnabled={isAcceptEnabled && isIssueAssignedToMe}
+          />
+          <ActionButton
+            label={i18n.t('reject_issue')}
+            tooltipLabel={i18n.t('reject_issue_help_description')}
+            onShowDialog={_showRejectDialog}
+            isEnabled={(!hasActionsOrResolved || isAcceptEnabled) && isIssueAssignedToMe}
+          />
+          <ActionButton
+            label={i18n.t('record_steps_taken')}
+            tooltipLabel={i18n.t('record_steps_taken_help_description')}
+            onShowDialog={_showRecordStepsDialog}
+            isEnabled={isRecordResolutionEnabled}
+          />
+          <ActionButton
+            label={i18n.t('record_resolution')}
+            tooltipLabel={i18n.t('record_resolution_help_description')}
+            onShowDialog={_showRecordResolutionDialog}
+            isEnabled={isRecordResolutionEnabled && isIssueAssignedToMe}
+          />
+        </View>
         <ActionButton
-          label={i18n.t('accept_issue')}
-          tooltipLabel={i18n.t('accept_issue_help_description')}
-          onShowDialog={_showDialog}
-          isEnabled={isAcceptEnabled && isIssueAssignedToMe}
+          label={i18n.t('escalate')}
+          tooltipLabel={i18n.t('escalate_help_description')}
+          onShowDialog={_showEscalateDialog}
+          isEnabled={!disableEscalation && isRecordResolutionEnabled}
         />
-        <ActionButton
-          label={i18n.t('reject_issue')}
-          tooltipLabel={i18n.t('reject_issue_help_description')}
-          onShowDialog={_showRejectDialog}
-          isEnabled={(!hasActionsOrResolved || isAcceptEnabled) && isIssueAssignedToMe}
-        />
-        <ActionButton
-          label={i18n.t('record_steps_taken')}
-          tooltipLabel={i18n.t('record_steps_taken_help_description')}
-          onShowDialog={_showRecordStepsDialog}
-          isEnabled={isRecordResolutionEnabled}
-        />
-        <ActionButton
-          label={i18n.t('record_resolution')}
-          tooltipLabel={i18n.t('record_resolution_help_description')}
-          onShowDialog={_showRecordResolutionDialog}
-          isEnabled={isRecordResolutionEnabled && isIssueAssignedToMe}
-        />
-      </View>
-      <ActionButton
-        label={i18n.t('escalate')}
-        tooltipLabel={i18n.t('escalate_help_description')}
-        onShowDialog={_showEscalateDialog}
-        isEnabled={!disableEscalation && isRecordResolutionEnabled}
-      />
+        </>
+      )}
     </View>
   );
 }

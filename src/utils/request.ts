@@ -15,7 +15,11 @@ const request = ({ ...options }) => {
       // console.log(error.response.data);
       // console.log(error.response.status);
       // console.log(error.response.headers);
-      return Promise.reject({message: `${error.status ?? ''} http client response error: ${error.response.status}`});
+      return Promise.reject({
+        message: `${error.status ?? ''} http client response error: ${error.response.status}`,
+        // keep status and body so callers can show the server explanation
+        response: { status: error.response.status, data: error.response.data },
+      });
       // Reject the promise to handle it in the calling code
     } else if (error.request) {
       // The request was made but no response was received

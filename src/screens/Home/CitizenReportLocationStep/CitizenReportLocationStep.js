@@ -17,7 +17,7 @@ function CitizenReportLocationStep({ route }) {
         stepOneParams={params.stepOneParams}
         stepTwoParams={params.stepTwoParams}
         issueCommunes={administrativeRegionsList}
-        uniqueRegion={profile.administrative_region}
+        profile={profile}
       />
     </SafeAreaView>
   );

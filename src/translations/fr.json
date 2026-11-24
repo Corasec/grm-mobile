@@ -1,17 +1,11 @@
 {
-  //Common
   "reload": "recharger",
   "created_at": "Créé le",
   "updated_at": "Mise à jour le",
   "took_place_on": "a eu lieu le",
-
-  //Headers
   "citizen_input_header": "Nouvel enregistrement",
-  
-  //Tabs
   "dashboard": "Dashboard",
   "profile": "Profil",
-  //Onboarding
   "used_app_before": "Avez-vous vos identifiants de connexion ?",
   "yes": "OUI",
   "no": "NON",
@@ -22,20 +16,17 @@
   "connect": "Se connecter",
   "email_provided": "Veuillez entrer l'adresse email fournie par votre superviseur et utiliser un mot de passe de votre choix.",
   "choose_password": "Choisissez votre mot de passe",
-  "enter_new_password":  "Entrez votre nouveau mot de passe. Il doit contenir au moins 8 caractères.",
+  "enter_new_password": "Entrez votre nouveau mot de passe. Il doit contenir au moins 8 caractères.",
   "last_validation": "Une dernière validation est requise!",
   "please_enter_code": "Utilisez le code fourni par votre superviseur",
   "account_create_success": "Votre compte a été créé avec succès",
   "logout": "Se déconnecter",
-  //GRM
   "diagnostics": "Statistiques",
   "information": "Information",
   "collect_reports": "Collecte Plaintes ou Suggestions",
   "search_reports": "Résumé de mes Plaintes",
   "sync_files": "Synchroniser les Fichiers",
   "account_insights": "Aperçu du Compte",
-
-  //GRM-Intro
   "intro_text_0": "Communique avec le citoyen : ",
   "intro_text_1": "Nous avons inclus des points de discussion pour vous aider à guider les citoyens tout au long du processus. Pour commencer la session, veuillez envisager d’informer les gens de ce qui suit :  ",
   "intro_text_2": "J’apprécie que vous soyez venu nous faire part de vos préoccupations concernant le projet. Ce sera rapide - quelques minutes - et facile. Avant de commencer, vous devez savoir certaines choses.”",
@@ -43,8 +34,6 @@
   "intro_text_4": "Tous les détails que vous avez qui peuvent nous aider à localiser et à résoudre la situation, ou à apporter des améliorations sont appréciés, mais ne vous inquiétez pas si vous ne vous souvenez pas de quelque chose.",
   "intro_text_5": "Votre plainte sera enregistrée et attribuée au comité responsable.",
   "intro_text_6": "Nous essayons de résoudre les problèmes dans les plus brefs délais, et nous vous aiderons à suivre votre problème.",
-
-  //step 1
   "welcome_citizen_input": "Bienvenue sur le portail du MGP numérique!",
   "step_1": "Étape 1",
   "stay_touch_question": "Méthode préférée de contact",
@@ -57,8 +46,6 @@
   "step_1_method_3": "E-mail",
   "step_1_placeholder_1": "Méthode de contact",
   "step_1_placeholder_2": "Entrez les informations ici",
-
-  //contact step
   "contact_step_title": "Information de contact",
   "contact_step_subtitle": "Nom du Plaignant.",
   "contact_step_explanation": "Communique avec le citoyen : “Il est facultatif de fournir votre nom. Je peux laisser vide. Cela pourrait néanmoins être utile pour la résolution de la plainte. Nous vous encourageons donc à nous permettre de l'enregistrer. Il peut rester confidentiel et uniquement visible pour le comité de gestion de la plainte.”",
@@ -68,10 +55,6 @@
   "contact_step_placeholder_4": "Cette personne dépose la plainte au nom de quelqu’un d’autre.",
   "contact_step_placeholder_5": "Groupe socio-professionnel (facultatif)",
   "contact_step_placeholder_6": "Niveau d'instuction (facultatif)",
-
-
-
-  //step 2
   "step_2": "Étape 2",
   "step_2_subtitle": "Détails de la plainte",
   "step_2_explanation": "Communique avec le citoyen : “Je souhaite enregistrer les dates des événements que vous signalez. Si vous ne vous souvenez pas des dates exactes, faites de votre mieux et j’en ferai une note spéciale. Ne vous inquiétez pas si vous ne vous souvenez pas de chaque détail.”",
@@ -90,8 +73,6 @@
   "step_2_keep_name_confidential": "Gardez le nom confidentiel. Seule la personne chargée de résoudre la plainte verra le nom.",
   "step_2_on_behalf_of_someone": "Il s'agit d'une personne qui remplit ceci pour le compte d'une autre personne.",
   "step_2_organization_behalf_someone": "Il s'agit d'une organisation qui remplit ceci pour le compte d'une autre personne.",
-
-  //step 3
   "step_3": "Étape 3",
   "step_3_confirmation": "Confirmez les détails et soumettez",
   "step_3_subtitle": "Communique avec le citoyen : “Nous avons presque terminé. Je veux prendre un moment et revoir ce que nous avons capturé. Nous pouvons modifier les informations ou les soumettre.”",
@@ -104,16 +85,11 @@
   "step_3_field_title_6": "Sous Composante:",
   "step_3_field_title_7": "Groupe Socio-professionnel:",
   "step_3_attachments": "Pièces jointes:",
-
-  //location step
   "step_4": "Étape 4",
   "step_location_description": "Où cela s’est-il produit ?",
   "step_location_body": "Ici, vous devez essayer d’obtenir un lieu aussi précis que nécessaire pour résoudre le problème. Les adresses, les coins de rue, les descriptions du quartier peuvent tous être utiles. S’il s’agit d’un problème confidentiel ou sensible, sélectionnez simplement les paramètres régionaux et ne collectez aucun autre détail.",
   "step_location_dropdown_placeholder": "Tapez pour sélectionner",
   "step_location_input_explanation": "Veuillez entrer des détails supplémentaires sur\nLe lieu qui pourraient aider à résoudre\nle problème (par exemple, adresse, coin de rue\nou description de l’emplacement).",
-
-
-  //step 4
   "step_4_subtitle": "Vous avez terminé ! N’oubliez pas ce code!",
   "step_4_description": "Communique avec le citoyen : “La préoccupation a été capturée et sera attribuée à un représentant compétent. Pour suivre les progrès sur cette reclamation, veuillez utiliser le code ci-dessous. (encouragez le citoyen à écrire ou à répéter le code ci-dessous.”\n\nRappelez au plaignant combien de temps il lui faudra pour obtenir une confirmation et une résolution. En général le délai est de trois jours",
   "step_4_issue_code": "Référence de la plainte:",
@@ -122,18 +98,13 @@
   "step_4_back_text": "Retour à l’accueil du MGP",
   "step_5": "Étape 5",
   "step_6": "Étape 6",
-
-
-  //general
   "save_button_text": "ENREGISTRER",
   "next": "SUIVANT",
   "submit_button_text": "ENREGISTRER",
   "male": "Masculin",
   "female": "Féminin",
   "other": "Autre",
-  "rather_not_say":  "Préfère ne rien dire",
-
-  //issues detail
+  "rather_not_say": "Préfère ne rien dire",
   "description_label": "Description",
   "reported_label": "Déclaré/Rapporté",
   "status_label": "Status",
@@ -147,8 +118,6 @@
   "comment_placeholder": "Écrire un commentaire...",
   "information_not_available": "Information non disponible",
   "confidential": "Confidentiel",
-
-  //issues search
   "overdue_label": "Plaintes dont le traitement est en retard",
   "assigned_to_you_label": "Plaintes qui vous sont assignées",
   "resolved_by_you_label": "Plaintes Résolues par vous",
@@ -167,8 +136,6 @@
   "issue_was_rated": "La plainte a été évaluée. Le plaiissue_was_escalatedgnant a donné une note de: ",
   "error_rejecting_issue": "Erreur lors du rejet de la plainte.",
   "issue_rejected_successfully": "La plainte a été rejetée avec succès.",
-
-  // issues detail
   "are_you_accepting": "Acceptez-vous qu'il s'agisse d'une plainte liée au projet ? Ou bien le rejetez-vous parce qu'il n'est pas pertinent ?",
   "you_have_accepted": "Vous avez accepté cette plainte dans le système. Des notifications ont été envoyées au citoyen et à l'enregistreur initial de la plainte.",
   "finished": "FINALISE",
@@ -183,13 +150,11 @@
   "reject_issue": "Rejeter la plainte",
   "record_steps_taken": "Enregistrer les étapes parcourues",
   "record_resolution": "Sauvegarder la résolution",
-
-  "accept_issue_help_description" : "Lance le traitement officiel du dossier.",
-  "reject_issue_help_description" : "Annule le processus après soumission d'une raison de refus.",
-  "record_steps_taken_help_description" : "Sauvegarde votre progression sans finaliser le dossier.",
-  "record_resolution_help_description" : "Finalise le dossier et archive la solution définitive.",
-  "escalate_help_description" : "Transfère le dossier à un niveau de révision plus élevé ou à un superviseur.",
-
+  "accept_issue_help_description": "Lance le traitement officiel du dossier.",
+  "reject_issue_help_description": "Annule le processus après soumission d'une raison de refus.",
+  "record_steps_taken_help_description": "Sauvegarde votre progression sans finaliser le dossier.",
+  "record_resolution_help_description": "Finalise le dossier et archive la solution définitive.",
+  "escalate_help_description": "Transfère le dossier à un niveau de révision plus élevé ou à un superviseur.",
   "rate_appeal": "Evaluer & Faire Appel",
   "escalate": "Escalader/Remonter",
   "lodged_by": "Inscrite par:",
@@ -265,7 +230,6 @@
   "please_choose_value_for_required_field": "Merci de sélectionner une valeur pour les champs obligatoires.",
   "no_notifications": "Aucune notification",
   "no_attachment_to_sync": "Aucune pièce jointe à synchronisée.",
-
   "stat_nb_issue_by_age_range": "Le nombre de plainte par tranche d'âge",
   "stat_nb_issue_by_occupation_status": "Le nombre de plainte par Situation d'occupation",
   "stat_nb_issue_by_education_level": "Le nombre de plainte par Niveau d'instruction",
@@ -274,5 +238,10 @@
   "stat_nb_issue_by_issue_component": "Le nombre de plainte par Composante",
   "stat_nb_issue_by_issue_sub_component": "Le nombre de plainte par Sous Composante",
   "stat_nb_issue_by_per_date": "Le nombre de plainte par jour",
-  "no_results": "Aucun résultat trouvé"
+  "no_results": "Aucun résultat trouvé",
+  "account_type": "Type de compte",
+  "account_type_committee": "Comité",
+  "account_type_facilitator": "Facilitateur",
+  "step_location_fixed": "Lieu de la plainte",
+  "issue_read_only_for_facilitator": "Consultation uniquement : cette plainte est traitée par le comité auquel elle est affectée."
 }

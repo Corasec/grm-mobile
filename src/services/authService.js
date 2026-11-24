@@ -13,35 +13,6 @@ function handleErrors(response)
   return response;
 }
 
-export async function register(data) {
-  const myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
-  const requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: JSON.stringify(data),
-  };
-  const response = await fetch(`${baseURL}/authentication/register/`, requestOptions);
-  // eslint-disable-next-line no-return-await
-  return await response.json();
-}
-
-export async function validateCode(data) {
-  const myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
-  const requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: JSON.stringify(data),
-  };
-  // eslint-disable-next-line no-console
-  const fetchResponse = await fetch(`${baseURL}/authentication/facilitator-credentials/update/`, {
-    ...requestOptions,
-  });
-  // eslint-disable-next-line no-return-await
-  return await fetchResponse.json();
-}
-
 export async function fetchAuthCredentials(data) {
     const myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -59,8 +30,13 @@ export async function fetchAuthCredentials(data) {
     }
 }
   
-export async function fetchFacilitatorProfile() {
-  const url = `/authentication/facilitator-profile/`;
+/**
+ * Profile of the logged-in mobile account: account type (committee / facilitator),
+ * whether it can process issues, committee info and the locations it can report.
+ * Accounts that are neither committee nor facilitator get a 403.
+ */
+export async function fetchMobileProfile() {
+  const url = `/authentication/profile/`;
   const requestOptions = {
     url,
     method: 'GET',
@@ -73,7 +49,9 @@ export async function fetchFacilitatorProfile() {
     return jsonData;
   } catch (error) {
     console.error(JSON.stringify(error.message));
-    return { error: error } 
+    // Show the server explanation when there is one (e.g. account not allowed on the mobile app)
+    const serverMessage = error?.response?.data?.error;
+    return { error: serverMessage ? new Error(serverMessage) : error };
   }
 }
 

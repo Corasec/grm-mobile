@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { baseURL } from '../../../../services/authService';
 import { logout } from '../../../../store/ducks/authentication.duck';
 import { i18n } from "../../../../translations/i18n";
+import { getAccountLabel, isCommittee } from '../../../../utils/account';
 import { colors } from '../../../../utils/colors';
 import ProfileItem from '../components/ProfileItem';
 import SmallCard from '../components/SmallCard';
@@ -83,11 +84,8 @@ function Content({ issues, session, profile, department, statuses }) {
         title={i18n.t('location')}
         description={`${profile?.administrative_region?.name}`}
       />
-      <ProfileItem title={i18n.t('department')} description={department?.name} />
-      <ProfileItem
-        title={i18n.t('is_village_secretary')}
-        description={profile?.village_secretary ? 'Oui' : 'Non'}
-      />
+      <ProfileItem title={i18n.t('account_type')} description={getAccountLabel(profile, (key) => i18n.t(key))} />
+      {isCommittee(profile) && <ProfileItem title={i18n.t('department')} description={department?.name} />}
       <View style={styles.containerA}>
         <Button color={colors.primary} onPress={() => dispatch(logout())}>
           {i18n.t('logout')}

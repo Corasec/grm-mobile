@@ -2,6 +2,10 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import IssueList from './IssuesList';
 
+jest.mock('@react-navigation/native', () => ({
+  useNavigation: jest.fn(),
+}));
+
 jest.mock('react-redux', () => ({
   useSelector: jest.fn(),
 }));

@@ -6,7 +6,7 @@ import { Button } from 'react-native-paper';
 import { useDispatch, useSelector } from 'react-redux';
 import CustomLoadingSpinner from '../components/CustomLoadingSpinner/CustomLoadingSpinner';
 import HomeRouter from '../screens/Home';
-import { fetchFacilitatorProfile } from '../services/authService';
+import { fetchMobileProfile } from '../services/authService';
 import { fetchAdministrativeRegions } from '../services/issues/AdministrativeRegionService';
 import { syncServiceInstance } from '../services/shared/SyncService';
 import { logout, setProfile } from '../store/ducks/authentication.duck';
@@ -14,6 +14,7 @@ import { setGlobalLoading } from '../store/ducks/global.duck';
 import { i18n } from '../translations/i18n';
 import { colors } from '../utils/colors';
 import { INITIAL_DATA_FETCHED_STORAGE_KEY } from '../utils/constants';
+import { hasMobileAccountType } from '../utils/account';
 import { databaseServiceInstance, getData, storeData } from '../utils/storageManager';
 
 const { width } = Dimensions.get('screen');
@@ -53,27 +54,27 @@ const PrivateRoutes = () => {
     }
   };
 
-  const loadFacilitatorProfile = async () => {
-    // Try to get facilitatorProfile from redux state first
-    if (profile) {
+  const loadMobileProfile = async () => {
+    // Reuse the stored profile only if it comes from the current API (it has an account type);
+    // profiles stored by older app versions are refreshed.
+    if (hasMobileAccountType(profile)) {
       setProfileLoaded(true);
       return;
     }
 
-    // Otherwise, fetch from API as before
-    const facilitatorProfileResponse = await fetchFacilitatorProfile();
-    if (facilitatorProfileResponse.error) {
-      console.error(facilitatorProfileResponse.error);
-      setProfileError(facilitatorProfileResponse.error);
+    const profileResponse = await fetchMobileProfile();
+    if (profileResponse.error) {
+      console.error(profileResponse.error);
+      setProfileError(profileResponse.error);
     } else {
-      dispatch(setProfile(facilitatorProfileResponse));
+      dispatch(setProfile(profileResponse));
       setProfileLoaded(true);
     }
   };
 
   useEffect(() => {
     const loadProfile = async () => {
-      await loadFacilitatorProfile();
+      await loadMobileProfile();
     };
     loadProfile();
   }, []);
@@ -148,7 +149,7 @@ const PrivateRoutes = () => {
               onPress={() => {
                 setProfileError(null);
                 setProfileLoaded(false);
-                loadFacilitatorProfile();
+                loadMobileProfile();
               }}
             >
               {i18n.t('reload')}
