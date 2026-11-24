@@ -198,5 +198,10 @@
   "password_change_mismatch": "The confirmation does not match the new password.",
   "password_change_same": "The new password must be different from the current one.",
   "password_change_offline": "No internet connection. Try again once connected.",
-  "password_change_done": "Your password has been changed. Use it next time you log in."
+  "password_change_done": "Your password has been changed. Use it next time you log in.",
+  "session_rejected_title": "Session refused by the server",
+  "session_rejected_message": "Your account has been deactivated or your session is no longer valid. Contact the GRM administrator.",
+  "session_rejected_unsent_data": "Some issues or actions have not been sent yet. They stay on this phone and will be sent when you log in again with this account.",
+  "retry": "Retry",
+  "unsent_data_of_other_account": "This phone holds unsent data of the account {{account}}. Log in with that account to send it before using another account."
 }

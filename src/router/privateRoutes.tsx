@@ -15,7 +15,8 @@ import { i18n } from '../translations/i18n';
 import { colors } from '../utils/colors';
 import { INITIAL_DATA_FETCHED_STORAGE_KEY } from '../utils/constants';
 import { hasMobileAccountType } from '../utils/account';
-import { databaseServiceInstance, getData, storeData } from '../utils/storageManager';
+import { databaseServiceInstance, getData, hasUnsentLocalChanges, storeData } from '../utils/storageManager';
+import { onSessionRejected } from '../utils/session';
 
 const { width } = Dimensions.get('screen');
 
@@ -119,6 +120,69 @@ const PrivateRoutes = () => {
       }
     };
   }, [dbReady]);
+
+  // Account deactivated in the dashboard or token deleted: block the app without deleting anything
+  const [sessionRejected, setSessionRejected] = React.useState(false);
+  const [hasUnsentData, setHasUnsentData] = React.useState(false);
+  const [retrying, setRetrying] = React.useState(false);
+
+  useEffect(
+    () =>
+      onSessionRejected(async () => {
+        setSessionRejected(true);
+        setHasUnsentData(await hasUnsentLocalChanges());
+      }),
+    []
+  );
+
+  const retrySession = async () => {
+    setRetrying(true);
+    const profileResponse = await fetchMobileProfile();
+    setRetrying(false);
+    if (!profileResponse.error) {
+      dispatch(setProfile(profileResponse));
+      setSessionRejected(false);
+    }
+  };
+
+  if (sessionRejected)
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', padding: 24, backgroundColor: 'white' }}>
+        <Text style={{ fontSize: 18, textAlign: 'center', color: colors.primary, fontWeight: '600', marginBottom: 16 }}>
+          {i18n.t('session_rejected_title')}
+        </Text>
+        <Text style={{ textAlign: 'center', color: colors.secondary, marginBottom: 16 }}>
+          {i18n.t('session_rejected_message')}
+        </Text>
+        {hasUnsentData && (
+          <Text style={{ textAlign: 'center', color: colors.error, marginBottom: 24 }}>
+            {i18n.t('session_rejected_unsent_data')}
+          </Text>
+        )}
+        <Button
+          theme={theme}
+          style={[styles.reloadButton, { backgroundColor: '#24c38b' }]}
+          color="white"
+          loading={retrying}
+          disabled={retrying}
+          onPress={retrySession}
+        >
+          {i18n.t('retry')}
+        </Button>
+        <View style={{ marginVertical: 10 }} />
+        <Button
+          theme={theme}
+          style={[styles.reloadButton, { backgroundColor: colors.lightgray }]}
+          color="white"
+          onPress={() => {
+            setSessionRejected(false);
+            dispatch(logout());
+          }}
+        >
+          {i18n.t('logout')}
+        </Button>
+      </View>
+    );
 
   if (profileError)
     return (

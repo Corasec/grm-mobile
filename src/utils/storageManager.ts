@@ -1,4 +1,5 @@
 import { enablePromise } from 'react-native-sqlite-storage';
+import { hasUnsyncedChanges } from '@nozbe/watermelondb/sync';
 import SQLiteAdapter from '@nozbe/watermelondb/adapters/sqlite';
 import schema from '../migrations/appSchema';
 import migrations from '../migrations/migrations';
@@ -25,6 +26,8 @@ class DatabaseService {
   database: Database | null = null; // 💡 Store the database instance here
 
   async initDB() {
+    // Idempotent: the login screen may open the database to look for unsent data
+    if (this.database) return;
     try {
       
       const adapter = new SQLiteAdapter({
@@ -62,6 +65,18 @@ class DatabaseService {
 }
 
 export const databaseServiceInstance = new DatabaseService();
+
+/** Whether the local database holds changes not yet sent to the server (opens it if needed). */
+export async function hasUnsentLocalChanges(): Promise<boolean> {
+  try {
+    await databaseServiceInstance.initDB();
+    if (!databaseServiceInstance.database) return false;
+    return await hasUnsyncedChanges({ database: databaseServiceInstance.database });
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
 
 export const storeData = async (key, value) => {
   try {

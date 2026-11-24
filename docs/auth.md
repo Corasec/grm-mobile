@@ -191,3 +191,18 @@ await authService.logout();
 
 - [API Overview](./api.md) - Complete API reference
 - [Error Handling](./errors.md) - Error codes and responses
+
+## Session refused by the server (account deactivated)
+
+When a GRM manager deactivates an account in the dashboard (or its token is deleted), every API call
+answers **401**. The app (`src/utils/session.ts`, hooked in `src/utils/request.ts`) then shows a
+blocking screen: "Session refusée par le serveur", with a warning when unsent issues or actions
+remain, and two buttons: **Réessayer** (the account may have been reactivated) and **Se déconnecter**.
+**Nothing is deleted**: logging out only removes the session, the local database is kept.
+
+## Unsent data and another account on the same phone
+
+The account that last logged in owns the local data (`local_data_owner` in AsyncStorage). While some
+of its data is unsent, **another account cannot log in on the phone**: the login screen asks to log in
+with the owner account first, so that nothing is sent under the wrong name. Once everything is sent,
+any account can log in.

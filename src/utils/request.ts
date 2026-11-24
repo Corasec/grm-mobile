@@ -1,6 +1,7 @@
 import axios from "axios";
 import config from "../../config";
 import { appVersion } from "./appVersion";
+import { isSessionRejected, notifySessionRejected } from "./session";
 
 export const client = axios.create({ baseURL: config.API_AUTH_BASE_URL });
 
@@ -10,6 +11,8 @@ const request = ({ ...options }) => {
   const onError = (error) => {
 
     if (error.response) {
+      // Account deactivated or token deleted: let the app show the blocking screen
+      if (isSessionRejected(error.response.status, error.config)) notifySessionRejected();
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
       // console.log(error.response.data);

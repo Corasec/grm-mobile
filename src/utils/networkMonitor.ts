@@ -56,7 +56,16 @@ async function setupConnectionWatcher(): Promise<void> {
   });
 }
 
+let syncInitialized = false;
+
+/** Whether initialSync() already ran (the database itself may be opened earlier by the login screen). */
+export function isSyncInitialized(): boolean {
+  return syncInitialized;
+}
+
 export async function initialSync(): Promise<void> {
+  if (syncInitialized) return;
+  syncInitialized = true;
   registerServices();
   await databaseServiceInstance.initDB();
   initialSyncListener = NetInfo.addEventListener(async (state) => {
