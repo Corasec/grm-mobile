@@ -94,7 +94,46 @@ export function getAccountLabel(profile: MobileProfile, t: (key: string) => stri
     return details ? `${t('account_type_committee')} — ${details}` : t('account_type_committee');
   }
   if (isFacilitator(profile)) {
+    if (profile?.field_role === 'FC') return t('field_role_fc');
+    if (profile?.field_role === 'SC') return t('field_role_sc');
     return t('account_type_facilitator');
   }
   return '';
+}
+
+/** Full location of the account, e.g. "Bénin > Alibori > Banikoara" (falls back to the name). */
+export function getLocationLabel(profile: MobileProfile): string {
+  const region = profile?.administrative_region;
+  return region?.hierarchical_name || region?.name || '';
+}
+
+/** Villages covered by a field staff account (empty for committees). */
+export function getCoveredVillages(profile: MobileProfile): Region[] {
+  if (!isFacilitator(profile)) return [];
+  return profile?.location?.regions ?? [];
+}
+
+type IssueLike = {
+  reporter?: { id?: number | string } | number | string | null;
+  status?: { id?: number | string } | number | string | null;
+};
+type StatusLike = { id?: number | string; final_status?: boolean; rejected_status?: boolean };
+
+/**
+ * Counters of a reporter account (field staff): issues it reported, still in progress, closed
+ * (resolved or rejected).
+ */
+export function getReporterCounters(issues: IssueLike[], userId: number | string | undefined, statuses: StatusLike[] = []) {
+  const same = (a: any, b: any) => a !== undefined && a !== null && String(a) === String(b);
+  const closedIds = statuses.filter((s) => s.final_status || s.rejected_status).map((s) => s.id);
+  const reported = issues.filter((i) => {
+    const reporter = typeof i.reporter === 'object' && i.reporter !== null ? i.reporter.id : i.reporter;
+    return same(reporter, userId);
+  });
+  const isClosed = (i: IssueLike) => {
+    const statusId = typeof i.status === 'object' && i.status !== null ? i.status.id : i.status;
+    return closedIds.some((id) => same(id, statusId));
+  };
+  const closed = reported.filter(isClosed).length;
+  return { reported: reported.length, inProgress: reported.length - closed, closed };
 }
